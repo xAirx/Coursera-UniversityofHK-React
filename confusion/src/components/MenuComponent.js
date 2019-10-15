@@ -1,64 +1,43 @@
 import React, { Component } from 'react';
-import { Media } from 'reactstrap';
+import DishDetail from './DishdetailComponent'
+import {
+	Card, CardImg, CardImgOverlay, CardText, CardBody,
+	CardTitle
+} from 'reactstrap';
 
 class Menu extends Component {
+
 	constructor(props) {
 		super(props);
+
 		this.state = {
-			dishes: [
-				{
-					id: 0,
-					name: 'Uthappizza',
-					image: 'assets/images/uthappizza.png',
-					category: 'mains',
-					label: 'Hot',
-					price: '4.99',
-					description: 'A unique combination of Indian Uthappam (pancake) and Italian pizza, topped with Cerignola olives, ripe vine cherry tomatoes, Vidalia onion, Guntur chillies and Buffalo Paneer.'
-				},
-				{
-					id: 1,
-					name: 'Zucchipakoda',
-					image: 'assets/images/zucchipakoda.png',
-					category: 'appetizer',
-					label: '',
-					price: '1.99',
-					description: 'Deep fried Zucchini coated with mildly spiced Chickpea flour batter accompanied with a sweet-tangy tamarind sauce'
-				},
-				{
-					id: 2,
-					name: 'Vadonut',
-					image: 'assets/images/vadonut.png',
-					category: 'appetizer',
-					label: 'New',
-					price: '1.99',
-					description: 'A quintessential ConFusion experience, is it a vada or is it a donut?'
-				},
-				{
-					id: 3,
-					name: 'ElaiCheese Cake',
-					image: 'assets/images/elaicheesecake.png',
-					category: 'dessert',
-					label: '',
-					price: '2.99',
-					description: 'A delectable, semi-sweet New York Style Cheese Cake, with Graham cracker crust and spiced with Indian cardamoms'
-				}
-			],
-		};
+			selectedDish: null
+		}
 	}
 
+	/* SELECTING A DISH AND ADDING THAT TO THE STATE */
+	onDishSelect(dish) {
+		this.setState({ selectedDish: dish });
+		console.log("Sending state to DishdetailComponent");
+		/* 	console.log("This is the set state in menucomponent: " + JSON.stringify(this.state.selectedDish)) */
+	}
+
+
 	render() {
-		const menu = this.state.dishes.map((dish) => {
+		// Shows the top images, that we click on to see details.
+		const menu = this.props.dishes.map((dish) => {
 			return (
-				<div key={dish.id} className="col-12 mt-5">
-					<Media tag="li">
-						<Media left middle>
-							<Media object src={dish.image} alt={dish.name} />
-						</Media>
-						<Media body className="ml-5">
-							<Media heading>{dish.name}</Media>
-							<p>{dish.description}</p>
-						</Media>
-					</Media>
+				<div className="col-12 col-md-5 m-1">
+
+					{/* Make sure we can click on dish */}
+					<Card key={dish.id} onClick={() => this.onDishSelect(dish)}>
+
+						{/* Show dish name and image */}
+						<CardImg width="100%" src={dish.image} alt={dish.name} />
+						<CardImgOverlay>
+							<CardTitle>{dish.name}</CardTitle>
+						</CardImgOverlay>
+					</Card>
 				</div>
 			);
 		});
@@ -66,13 +45,13 @@ class Menu extends Component {
 		return (
 			<div className="container">
 				<div className="row">
-					<Media list>
-						{menu}
-					</Media>
+					{/* SHOWS MENU FROM PROPS MAP ABOVE Show dish name and image */}
+					{menu}
 				</div>
+				<DishDetail selectedDish={this.state.selectedDish} />
 			</div>
 		);
 	}
 }
 
-export default Menu;
+export default Menu
