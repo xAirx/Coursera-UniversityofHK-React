@@ -45,7 +45,7 @@ class DishDetail extends Component {
 
 			<li class="list-unstyled" key={key}>
 				{comment.comment}<br /><br />
-				{"--" + comment.author + " ," + formatter.format(formatter.parse(comment.date))}<br /><br />
+				{"--" + comment.author + " ," + formatter.format(Date.parse(comment.date))}<br /><br />
 				{console.log(typeof comment.date)}
 				{console.log(comment.date)}
 

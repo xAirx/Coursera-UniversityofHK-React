@@ -12,14 +12,14 @@ export const DISHES =
 				{
 					id: 0,
 					rating: 5,
-					comment: "ID ONE;Imagine all the eatables, living in conFusion!",
+					comment: "Imagine all the eatables, living in conFusion!",
 					author: "John Lemon",
 					date: "2012-10-16T17:57:28.556094Z"
 				},
 				{
 					id: 1,
 					rating: 4,
-					comment: " Sends anyone to heaven, I wish I could get my mother-in-law to eat it!",
+					comment: "Sends anyone to heaven, I wish I could get my mother-in-law to eat it!",
 					author: "Paul McVites",
 					date: "2014-09-05T17:57:28.556094Z"
 				},
@@ -58,7 +58,7 @@ export const DISHES =
 				{
 					id: 0,
 					rating: 5,
-					comment: "ID two; Imagine all the eatables, living in conFusion!",
+					comment: "Imagine all the eatables, living in conFusion!",
 					author: "John Lemon",
 					date: "2012-10-16T17:57:28.556094Z"
 				},
@@ -104,7 +104,7 @@ export const DISHES =
 				{
 					id: 0,
 					rating: 5,
-					comment: "ID 3 Imagine all the eatables, living in conFusion!",
+					comment: "Imagine all the eatables, living in conFusion!",
 					author: "John Lemon",
 					date: "2012-10-16T17:57:28.556094Z"
 				},
@@ -150,7 +150,7 @@ export const DISHES =
 				{
 					id: 0,
 					rating: 5,
-					comment: " ID 4Imagine all the eatables, living in conFusion!",
+					comment: "Imagine all the eatables, living in conFusion!",
 					author: "John Lemon",
 					date: "2012-10-16T17:57:28.556094Z"
 				},
