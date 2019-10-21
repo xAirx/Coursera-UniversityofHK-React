@@ -1,26 +1,26 @@
 import React, { Component } from 'react';
-import DishDetail from './DishdetailComponent'
-import {
-	Card, CardImg, CardImgOverlay, CardText, CardBody,
+/* import DishDetail from './DishdetailComponent'
+ */import {
+	Card, CardImg, CardImgOverlay,
 	CardTitle
 } from 'reactstrap';
 
 class Menu extends Component {
 
-	constructor(props) {
+	/* constructor(props) {
 		super(props);
 
 		this.state = {
 			selectedDish: null
 		}
-	}
+	} */
 
 	/* SELECTING A DISH AND ADDING THAT TO THE STATE */
-	onDishSelect(dish) {
+	/* onDishSelect(dish) {
 		this.setState({ selectedDish: dish });
-		console.log("Sending state to DishdetailComponent");
+		console.log("Sending state to DishdetailComponent"); */
 		/* 	console.log("This is the set state in menucomponent: " + JSON.stringify(this.state.selectedDish)) */
-	}
+	/* 	} */
 
 
 	render() {
@@ -30,7 +30,8 @@ class Menu extends Component {
 				<div className="col-12 col-md-5 m-1">
 
 					{/* Make sure we can click on dish */}
-					<Card key={dish.id} onClick={() => this.onDishSelect(dish)}>
+					<Card key={dish.id}
+                        onClick={() => this.props.onClick(dish.id)}>
 
 						{/* Show dish name and image */}
 						<CardImg width="100%" src={dish.image} alt={dish.name} />
@@ -48,8 +49,8 @@ class Menu extends Component {
 					{/* SHOWS MENU FROM PROPS MAP ABOVE Show dish name and image */}
 					{menu}
 				</div>
-				<DishDetail selectedDish={this.state.selectedDish} />
-			</div>
+{/* 				<DishDetail selectedDish={this.state.selectedDish} />
+ */} 			</div>
 		);
 	}
 }

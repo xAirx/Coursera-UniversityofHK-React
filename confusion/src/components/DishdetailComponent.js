@@ -1,22 +1,24 @@
 import React, { Component } from 'react';
 
 import {
-	Card, CardImg, CardImgOverlay, CardText, CardBody,
+	Card, CardImg, CardText, CardBody,
 	CardTitle
 } from 'reactstrap';
 
 
 const formatter = new Intl.DateTimeFormat('en-GB');
 
+/* const dish = this.props.dish;
+console.log(dish) */
 class DishDetail extends Component {
 
-	constructor(props) {
+	/* constructor(props) {
 		super(props);
 
 		this.state = {
 			selectedDish: null
 		}
-	}
+	} */
 
 	// Grab the stuff from the object.
 	renderDish(dish) {
@@ -41,12 +43,13 @@ class DishDetail extends Component {
 	// Make into function component
 
 	renderComments(comments) {
-		return (comments && comments.comments.map((comment, key) =>
+		return (comments && comments.map((comment, key) =>
 
 			<li class="list-unstyled" key={key}>
 				{comment.comment}<br /><br />
 				{"--" + comment.author + " ," + formatter.format(Date.parse(comment.date))}<br /><br />
-				{console.log(typeof comment.date)}
+{/* 				{new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))}
+ */}				{console.log(typeof comment.date)}
 				{console.log(comment.date)}
 
 			</li>
@@ -61,16 +64,13 @@ class DishDetail extends Component {
 		return (
 			<div className="container">
 				<div className="row">
-
-				</div>
-				<div className="row">
 					<div className="col-12 col-md-5 m-1">
-						{this.renderDish(this.props.selectedDish)}
+						{this.renderDish(this.props.dish)}
 					</div>
 					<div className="col-12 col-md-5 m-1">
-						{this.props.selectedDish && (<>
+						{this.props.dish && (<>
 							<h4>Comments</h4>
-							{this.renderComments(this.props.selectedDish)}
+							{this.renderComments(this.props.dish.comments)}
 						</>
 						)}
 					</div>
