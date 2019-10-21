@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import {
 	Card, CardImg, CardText, CardBody,
@@ -8,20 +8,9 @@ import {
 
 const formatter = new Intl.DateTimeFormat('en-GB');
 
-/* const dish = this.props.dish;
-console.log(dish) */
-class DishDetail extends Component {
-
-	/* constructor(props) {
-		super(props);
-
-		this.state = {
-			selectedDish: null
-		}
-	} */
 
 	// Grab the stuff from the object.
-	renderDish(dish) {
+	function RenderDish({dish}) {
 
 		if (dish != null)
 			return (
@@ -42,8 +31,8 @@ class DishDetail extends Component {
 
 	// Make into function component
 
-	renderComments(comments) {
-		return (comments && comments.map((comment, key) =>
+	function RenderComments({comments}) {
+		return (comments && comments.comments.map((comment, key) =>
 
 			<li class="list-unstyled" key={key}>
 				{comment.comment}<br /><br />
@@ -57,27 +46,25 @@ class DishDetail extends Component {
 
 	}
 
-
-	render() {
+	const  DishDetail = (props) => {
 
 
 		return (
 			<div className="container">
 				<div className="row">
 					<div className="col-12 col-md-5 m-1">
-						{this.renderDish(this.props.dish)}
+						<RenderDish dish={props.dish} />
 					</div>
 					<div className="col-12 col-md-5 m-1">
-						{this.props.dish && (<>
+					{props.dish && (<>
 							<h4>Comments</h4>
-							{this.renderComments(this.props.dish.comments)}
+						<RenderComments comments={props.dish} />
 						</>
-						)}
+					)}
 					</div>
 				</div>
 			</div>
 		);
 	}
-}
 
 export default DishDetail
