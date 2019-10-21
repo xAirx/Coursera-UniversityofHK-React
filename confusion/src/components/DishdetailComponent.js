@@ -48,7 +48,6 @@ const formatter = new Intl.DateTimeFormat('en-GB');
 
 	const  DishDetail = (props) => {
 
-
 		return (
 			<div className="container">
 				<div className="row">
