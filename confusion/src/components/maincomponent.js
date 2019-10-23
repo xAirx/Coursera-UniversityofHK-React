@@ -41,6 +41,7 @@ class Main extends Component {
     // we will use the match.params to get the params from the route
     // That we need to send the correct dish.Id clicked to DishDetail
     // Presentational Component for rendering.
+
     const DishWithId = ({ match }) => (
       <DishDetail
         dish={
@@ -58,22 +59,11 @@ class Main extends Component {
       />
     );
 
-    // Functional component sending props to Home component
-    // Make it prettier in the router..
-    // Here we are sending the featured dish/leader/promotion.
+    // Filter SECTION
 
-    /* Filter returns an array so we select the first index.
-       That is featured first index of array.
-       filter returns new array with the features dish.
-        */
-
-    const HomePage = () => (
-      <Home
-        dish={dishes.filter(dish => dish.featured)[0]}
-        promotion={promotions.filter(promo => promo.featured)[0]}
-        leader={leaders.filter(leader => leader.featured)[0]}
-      />
-    );
+    const featureddish = dishes.filter(dish => dish.featured)[0];
+    const featuredpromotion = promotions.filter(promo => promo.featured)[0];
+    const featuredleaders = leaders.filter(lead => lead.featured)[0];
 
     return (
       <>
@@ -82,10 +72,37 @@ class Main extends Component {
         Here we iterate over children and find the first one that matches path. */}
         <Switch>
           {/* Passing functional component into route for home. */}
-          <Route path="/home" component={HomePage} />
+          <Route
+            path="/home"
+            component={() => (
+              <Home
+                dish={featureddish}
+                promotion={featuredpromotion}
+                leader={featuredleaders}
+              />
+            )}
+          />
           <Route path="/about" component={() => <About leaders={leaders} />} />
           {/*  match should match this exact pathname */}
-          <Route path="/menu/:dishId" component={DishWithId} />
+          <Route
+            path="/menu/:dishId"
+            component={({ match }) => (
+              <DishDetail
+                dish={
+                  dishes.filter(
+                    /* match.params.dishId is a string converted to an int using base10
+                 make sure its an integer WE MAKE SURE. */
+                    /* dish => dish.id === parseInt(match.params.dishId, 10)
+                Number only converts to a number */
+                    dish => dish.id === Number(match.params.dishId)
+                  )[0]
+                }
+                comments={comments.filter(
+                  comment => comment.dishId === Number(match.params.dishId)
+                )}
+              />
+            )}
+          />
           <Route
             exact
             path="/menu"
@@ -102,3 +119,20 @@ class Main extends Component {
 }
 
 export default Main;
+
+// Functional component sending props to Home component
+// Make it prettier in the router..
+// Here we are sending the featured dish/leader/promotion.
+
+/* Filter returns an array so we select the first index.
+   That is featured first index of array.
+   filter returns new array with the features dish.
+    */
+
+/*    const HomePage = () => (
+     <Home
+       dish={dishes.filter(dish => dish.featured)[0]}
+       promotion={promotions.filter(promo => promo.featured)[0]}
+       leader={leaders.filter(leader => leader.featured)[0]}
+     />
+   ); */
