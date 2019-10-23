@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-/* import { Navbar, NavbarBrand } from 'reactstrap';
- */
+import { Switch, Route, Redirect } from 'react-router-dom';
 import Menu from './MenuComponent';
 import DishDetail from './DishdetailComponent';
 
@@ -12,12 +11,10 @@ import { LEADERS } from '../shared/leaders';
 import Header from './HeaderComponent';
 import Footer from './FooterComponent';
 import Home from './HomeComponent';
-import { Switch, Route, Redirect } from 'react-router-dom';
 import Contact from './ContactComponent';
-
+import About from './AboutComponent';
 
 class Main extends Component {
-
   constructor(props) {
     super(props);
 
@@ -25,59 +22,79 @@ class Main extends Component {
       dishes: DISHES,
       comments: COMMENTS,
       promotions: PROMOTIONS,
-      leaders: LEADERS
+      leaders: LEADERS,
     };
   }
 
-
-/*   onDishSelect(dishId) {
-    console.log("ONDISHSELECTISINVOKED: " + dishId);
-    this.setState({ selectedDish: dishId});
-    console.log(this.state.selectedDish)
-  } */
-
-
   render() {
+    /*     const { name } = this.state.dish.name;
+     */
+    /*  Pulls out this.state.dishes and creates a const containing dishes */
 
-    const DishWithId = ({match}) => {
-      return(
-          <DishDetail dish={this.state.dishes.filter((dish) => dish.id === parseInt(match.params.dishId,10))[0]}
-            comments={this.state.comments.filter((comment) => comment.dishId === parseInt(match.params.dishId,10))} />
-      );
-    };
+    const { dishes } = this.state;
+    const { comments } = this.state;
+    const { leaders } = this.state;
+    const { promotions } = this.state;
 
+    // Functional component sending props to DishDetail component
+    // we are passing the matched route into the function
+    // we will use the match.params to get the params from the route
+    // That we need to send the correct dish.Id clicked to DishDetail
+    // Presentational Component for rendering.
+    const DishWithId = ({ match }) => (
+      <DishDetail
+        dish={
+          dishes.filter(
+            /* match.params.dishId is a string converted to an int using base10
+           make sure its an integer WE MAKE SURE. */
+            /* dish => dish.id === parseInt(match.params.dishId, 10)
+          Number only converts to a number */
+            dish => dish.id === Number(match.params.dishId)
+          )[0]
+        }
+        comments={comments.filter(
+          comment => comment.dishId === parseInt(match.params.dishId, 10)
+        )}
+      />
+    );
 
+    // Functional component sending props to Home component
+    // Make it prettier in the router..
+    // Here we are sending the featured dish/leader/promotion.
 
-    const HomePage = () => {
-      return(
-          <Home
-              dish={this.state.dishes.filter((dish) => dish.featured)[0]}
-              promotion={this.state.promotions.filter((promo) => promo.featured)[0]}
-              leader={this.state.leaders.filter((leader) => leader.featured)[0]}
-          />
-      );
-    }
+    /* Filter returns an array so we select the first index.
+       That is featured first index of array.
+       filter returns new array with the features dish.
+        */
 
-    // Will iterate and find the route that matches the URL and navigate to the view.
-
+    const HomePage = () => (
+      <Home
+        dish={dishes.filter(dish => dish.featured)[0]}
+        promotion={promotions.filter(promo => promo.featured)[0]}
+        leader={leaders.filter(leader => leader.featured)[0]}
+      />
+    );
 
     return (
       <>
-        {/* <Navbar dark color="primary">
-          <div className="container">
-            <NavbarBrand href="/">Ristorante Con Fusion</NavbarBrand>
-          </div>xs
-        </Navbar> */}
         <Header />
-         <Switch>
-          <Route path='/home' component={HomePage} />
-          <Route path='/menu/:dishId' component={DishWithId} />
-          <Route exact path='/menu' component={() => <Menu dishes={this.state.dishes} />} />
-          <Route exact path='/contactus' component={Contact} />} />
+        {/* Switch enables me to group routes together.
+        Here we iterate over children and find the first one that matches path. */}
+        <Switch>
+          {/* Passing functional component into route for home. */}
+          <Route path="/home" component={HomePage} />
+          <Route path="/about" component={() => <About leaders={leaders} />} />
+          {/*  match should match this exact pathname */}
+          <Route path="/menu/:dishId" component={DishWithId} />
+          <Route
+            exact
+            path="/menu"
+            component={() => <Menu dishes={dishes} />}
+          />
+          <Route exact path="/contactus" component={Contact} />} />
+          {/*     Default route  */}
           <Redirect to="/home" />
-          </Switch>
-        {/* <Menu dishes={this.state.dishes} onClick={(dishId) => this.onDishSelect(dishId)} />
-        <DishDetail dish={this.state.dishes.filter((dish) => dish.id === this.state.selectedDish)[0]} /> */}
+        </Switch>
         <Footer />
       </>
     );
