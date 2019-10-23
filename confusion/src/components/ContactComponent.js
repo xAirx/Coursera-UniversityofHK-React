@@ -24,7 +24,7 @@ class Contact extends Component {
       agree: false,
       contactType: 'Tel.',
       message: '',
-      touch: {
+      touched: {
         firstname: false,
         lastname: false,
         telnum: false,
@@ -37,7 +37,8 @@ class Contact extends Component {
     this.validate = this.validate.bind(this);
   }
 
-  // FORKLAR DETTE!!!!!
+  // ///////////////// FORKLAR DETTE!!!!! /////////////////////////////////////////////////////////
+
   handleBlur = field => evt => {
     const { touched } = this.state;
 
@@ -47,6 +48,7 @@ class Contact extends Component {
       },
     });
   };
+  // /////////////////////////////////////////////////////////////////////////////////////////////
 
   handleInputChange(event) {
     /* const target = event.target; */
@@ -98,7 +100,15 @@ class Contact extends Component {
   }
 
   render() {
-    const { firstname, lastname, telnum, email } = this.state;
+    const {
+      firstname,
+      lastname,
+      telnum,
+      email,
+      contactType,
+      agree,
+      message,
+    } = this.state;
 
     const errors = this.validate(
       { firstname },
@@ -247,6 +257,54 @@ class Contact extends Component {
                     onChange={this.handleInputChange}
                   />
                   <FormFeedback>{errors.email}</FormFeedback>
+                </Col>
+              </FormGroup>
+              <FormGroup row>
+                <Col md={{ size: 6, offset: 2 }}>
+                  <FormGroup check>
+                    <Label check>
+                      <Input
+                        type="checkbox"
+                        name="agree"
+                        checked={agree}
+                        onChange={this.handleInputChange}
+                      />{' '}
+                      <strong>May we contact you?</strong>
+                    </Label>
+                  </FormGroup>
+                </Col>
+                <Col md={{ size: 3, offset: 1 }}>
+                  <Input
+                    type="select"
+                    name="contactType"
+                    value={contactType}
+                    onChange={this.handleInputChange}
+                  >
+                    <option>Tel.</option>
+                    <option>Email</option>
+                  </Input>
+                </Col>
+              </FormGroup>
+              <FormGroup row>
+                <Label htmlFor="message" md={2}>
+                  Your Feedback
+                </Label>
+                <Col md={10}>
+                  <Input
+                    type="textarea"
+                    id="message"
+                    name="message"
+                    rows="12"
+                    value={message}
+                    onChange={this.handleInputChange}
+                  ></Input>
+                </Col>
+              </FormGroup>
+              <FormGroup row>
+                <Col md={{ size: 10, offset: 2 }}>
+                  <Button type="submit" color="primary">
+                    Send Feedback
+                  </Button>
                 </Col>
               </FormGroup>
             </Form>
