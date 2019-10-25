@@ -47,7 +47,7 @@ function RenderComments({ comments }) {
           <br />
           <br />
           {/* 				{new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))}
-           */}{' '}
+           */}
           {console.log(typeof comment.date)}
           {console.log(comment.date)}
         </li>

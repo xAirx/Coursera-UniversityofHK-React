@@ -37,14 +37,16 @@ class Contact extends Component {
     this.validate = this.validate.bind(this);
   }
 
-  // ///////////////// FORKLAR DETTE!!!!! /////////////////////////////////////////////////////////
-
+  // ///////////////// FORKLAR DETTE!!!!! ////////////////////////////////////////////////////////
   handleBlur = field => evt => {
     const { touched } = this.state;
 
     this.setState({
       touched: {
-        touched: { ...{ touched }, [field]: true },
+        /*   touched: { ...{ this.state.touched }, [field]: true }, */
+        /*         touched: { ...{ touched }, [field]: true },
+         */
+        touched: { touched, [field]: true },
       },
     });
   };
