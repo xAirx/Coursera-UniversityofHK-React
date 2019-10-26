@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
 import './App.css';
 import { BrowserRouter } from 'react-router-dom';
-import { Provider } from 'react-redux'
+import { Provider } from 'react-redux';
 import Main from './components/MainComponent';
 import { ConfigureStore } from './redux/configureStore';
 
 // Making store available.
 const store = ConfigureStore();
 class App extends Component {
-
-
   render() {
     return (
       // Wrapping with our provider, now the store is available to all components.
