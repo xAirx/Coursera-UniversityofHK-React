@@ -28,6 +28,7 @@ class Main extends Component {
      */
     /*  Pulls out this.state.dishes and creates a const containing dishes */
 
+    // These are arrays passed from the store.
     const { dishes } = this.props;
     const { comments } = this.props;
     const { leaders } = this.props;
@@ -116,10 +117,10 @@ Here we iterate over children and find the first one that matches path. */}
 }
 
 Main.propTypes = {
-  dishes: PropTypes.object.isRequired,
-  comments: PropTypes.object.isRequired,
-  leaders: PropTypes.object.isRequired,
-  promotions: PropTypes.object.isRequired,
+  dishes: PropTypes.array.isRequired,
+  comments: PropTypes.array.isRequired,
+  leaders: PropTypes.array.isRequired,
+  promotions: PropTypes.array.isRequired,
 };
 
 // connecting main component to the redux store so they can talk.

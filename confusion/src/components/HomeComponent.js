@@ -33,7 +33,7 @@ function RenderCard({ item }) {
 }
 
 RenderCard.propTypes = {
-  item: PropTypes.isRequired,
+  item: PropTypes.object.isRequired,
 };
 
 /* const { name } = this.props.dish.name; */
