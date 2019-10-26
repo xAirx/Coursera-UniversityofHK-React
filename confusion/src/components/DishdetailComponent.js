@@ -11,6 +11,7 @@ import {
   BreadcrumbItem,
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import CommentForm from './CommentForm';
 
 const formatter = new Intl.DateTimeFormat('en-GB');
 
@@ -37,21 +38,29 @@ RenderDish.propTypes = {
 
 function RenderComments({ comments }) {
   return (
-    (comments &&
-      comments.map((comment, key) => (
-        <li className="list-unstyled" key={key}>
-          {comment.comment}
-          <br />
-          <br />
-          {`--${comment.author} ,${formatter.format(Date.parse(comment.date))}`}
-          <br />
-          <br />
-          {/* 				{new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))}
-           */}
-          {console.log(typeof comment.date)}
-          {console.log(comment.date)}
-        </li>
-      ))) || <div />
+    comments && (
+      <>
+        {comments.map((comment, index) => (
+          <ul>
+            <li className="list-unstyled" key={index}>
+              {comment.comment}
+              <br />
+              <br />
+              {`--${comment.author} ,${formatter.format(
+                Date.parse(comment.date)
+              )}`}
+              <br />
+              <br />
+              {/* 				{new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))}
+               */}
+              {console.log(typeof comment.date)}
+              {console.log(comment.date)}
+            </li>
+          </ul>
+        ))}
+        <CommentForm />
+      </>
+    )
   );
 }
 
@@ -61,13 +70,13 @@ RenderComments.propTypes = {
 
 // IMPLICIT RETURN WHERE WE DESTRUCTURE ARGUMENTS .
 
-/* const ImplicitRetrun = ({ title }) => (
+/* const ImplicitRetrun = ({title}) => (
   <>
-    <h1>{title}</h1>
-  </>
-); */
+            <h1>{title}</h1>
+          </>
+          ); */
 /*
-if we use { } we have to use return because its explicit return
+if we use {} we have to use return because its explicit return
 
 Just like map and filter and return, they work because of implicit return */
 

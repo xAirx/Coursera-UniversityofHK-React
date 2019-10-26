@@ -40,23 +40,6 @@ class Main extends Component {
     // That we need to send the correct dish.Id clicked to DishDetail
     // Presentational Component for rendering.
 
-    const DishWithId = ({ match }) => (
-      <DishDetail
-        dish={
-          dishes.filter(
-            /* match.params.dishId is a string converted to an int using base10
-            make sure its an integer WE MAKE SURE. */
-            /* dish => dish.id === parseInt(match.params.dishId, 10)
-            Number only converts to a number */
-            dish => dish.id === Number(match.params.dishId)
-          )[0]
-        }
-        comments={comments.filter(
-          comment => comment.dishId === parseInt(match.params.dishId, 10)
-        )}
-      />
-    );
-
     // Filter SECTION
 
     const featureddish = dishes.filter(dish => dish.featured)[0];
