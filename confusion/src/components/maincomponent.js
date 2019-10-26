@@ -1,40 +1,37 @@
 import React, { Component } from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import Menu from './MenuComponent';
 import DishDetail from './DishdetailComponent';
-
-import { DISHES } from '../shared/dishes';
-import { COMMENTS } from '../shared/comments';
-import { PROMOTIONS } from '../shared/promotions';
-import { LEADERS } from '../shared/leaders';
-
 import Header from './HeaderComponent';
 import Footer from './FooterComponent';
 import Home from './HomeComponent';
 import Contact from './ContactComponent';
 import About from './AboutComponent';
 
+// WIll map the redux stores state in the props that will become available to my component.
+const mapStateToProps = state => ({
+  // obtaining the state from the redux store.
+  // These are derived from the redux store by connecting this component
+  // To the redux store.
+
+  dishes: state.dishes,
+  comments: state.comments,
+  promotions: state.promotions,
+  leaders: state.leaders,
+});
+
 class Main extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      dishes: DISHES,
-      comments: COMMENTS,
-      promotions: PROMOTIONS,
-      leaders: LEADERS,
-    };
-  }
-
   render() {
     /*     const { name } = this.state.dish.name;
      */
     /*  Pulls out this.state.dishes and creates a const containing dishes */
 
-    const { dishes } = this.state;
-    const { comments } = this.state;
-    const { leaders } = this.state;
-    const { promotions } = this.state;
+    const { dishes } = this.props;
+    const { comments } = this.props;
+    const { leaders } = this.props;
+    const { promotions } = this.props;
 
     // Functional component sending props to DishDetail component
     // we are passing the matched route into the function
@@ -47,9 +44,9 @@ class Main extends Component {
         dish={
           dishes.filter(
             /* match.params.dishId is a string converted to an int using base10
-           make sure its an integer WE MAKE SURE. */
+            make sure its an integer WE MAKE SURE. */
             /* dish => dish.id === parseInt(match.params.dishId, 10)
-          Number only converts to a number */
+            Number only converts to a number */
             dish => dish.id === Number(match.params.dishId)
           )[0]
         }
@@ -69,7 +66,7 @@ class Main extends Component {
       <>
         <Header />
         {/* Switch enables me to group routes together.
-        Here we iterate over children and find the first one that matches path. */}
+Here we iterate over children and find the first one that matches path. */}
         <Switch>
           {/* Passing functional component into route for home. */}
           <Route
@@ -91,9 +88,9 @@ class Main extends Component {
                 dish={
                   dishes.filter(
                     /* match.params.dishId is a string converted to an int using base10
-                 make sure its an integer WE MAKE SURE. */
+                    make sure its an integer WE MAKE SURE. */
                     /* dish => dish.id === parseInt(match.params.dishId, 10)
-                Number only converts to a number */
+                    Number only converts to a number */
                     dish => dish.id === Number(match.params.dishId)
                   )[0]
                 }
@@ -118,21 +115,30 @@ class Main extends Component {
   }
 }
 
-export default Main;
+Main.propTypes = {
+  dishes: PropTypes.object.isRequired,
+  comments: PropTypes.object.isRequired,
+  leaders: PropTypes.object.isRequired,
+  promotions: PropTypes.object.isRequired,
+};
+
+// connecting main component to the redux store so they can talk.
+// Wrapping everything with withRouter so our routing works with redux aswell.
+export default withRouter(connect(mapStateToProps)(Main));
 
 // Functional component sending props to Home component
 // Make it prettier in the router..
 // Here we are sending the featured dish/leader/promotion.
 
 /* Filter returns an array so we select the first index.
-   That is featured first index of array.
-   filter returns new array with the features dish.
-    */
+That is featured first index of array.
+filter returns new array with the features dish.
+*/
 
 /*    const HomePage = () => (
-     <Home
-       dish={dishes.filter(dish => dish.featured)[0]}
-       promotion={promotions.filter(promo => promo.featured)[0]}
-       leader={leaders.filter(leader => leader.featured)[0]}
-     />
-   ); */
+<Home
+dish={dishes.filter(dish => dish.featured)[0]}
+promotion={promotions.filter(promo => promo.featured)[0]}
+leader={leaders.filter(leader => leader.featured)[0]}
+/>
+); */
