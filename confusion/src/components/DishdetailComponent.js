@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import {
   Card,
   CardImg,
@@ -11,6 +10,7 @@ import {
   BreadcrumbItem,
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
+
 import CommentForm from './CommentForm';
 
 const formatter = new Intl.DateTimeFormat('en-GB');
@@ -36,7 +36,24 @@ RenderDish.propTypes = {
 
 // Make into function component
 
-function RenderComments({ comments }) {
+function RenderComments({ comments, addComment, dishId }) {
+  /* console.log('THIS IS ADDCOMMENT', props.addComment); */
+
+  /*  const renderStars = count =>
+     [...Array(count)].map((_, i) => {
+       {
+         {
+           <FontAwesome
+             className="super-crazy-colors"
+             name="rocket"
+             size="2x"
+             spin
+             style={{ textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }}
+           />;
+         }
+       }
+     }); */
+
   return (
     comments && (
       <>
@@ -45,6 +62,8 @@ function RenderComments({ comments }) {
             <li className="list-unstyled" key={index}>
               {comment.comment}
               <br />
+              <br />
+              {`${comment.rating} stars from me!`}
               <br />
               {`--${comment.author} ,${formatter.format(
                 Date.parse(comment.date)
@@ -58,7 +77,7 @@ function RenderComments({ comments }) {
             </li>
           </ul>
         ))}
-        <CommentForm />
+        <CommentForm dishId={dishId} addComment={addComment} />
       </>
     )
   );
@@ -80,26 +99,30 @@ if we use {} we have to use return because its explicit return
 
 Just like map and filter and return, they work because of implicit return */
 
-const DishDetail = ({ dish, comments, dish: { name } }) => (
+const DishDetail = (/* { dish, comments, dish: { name } } */ props) => (
   <div className="container">
     <div className="row">
       <Breadcrumb>
         <BreadcrumbItem>
           <Link to="/menu">Menu</Link>
         </BreadcrumbItem>
-        <BreadcrumbItem active>{name}</BreadcrumbItem>
+        <BreadcrumbItem active>{props.dish.name}</BreadcrumbItem>
       </Breadcrumb>
       <div className="col-12">
-        <h3>{name}</h3>
+        <h3>{props.dish.name}</h3>
         <hr />
       </div>
     </div>
     <div className="row">
       <div className="col-12 col-md-5 m-1">
-        <RenderDish dish={dish} />
+        <RenderDish dish={props.dish} />
       </div>
       <div className="col-12 col-md-5 m-1">
-        <RenderComments comments={comments} />
+        <RenderComments
+          comments={props.comments}
+          addComment={props.addComment}
+          dishId={props.dish.id}
+        />
       </div>
     </div>
   </div>

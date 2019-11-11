@@ -8,6 +8,8 @@ import {
   CardBody,
   CardTitle,
   CardSubtitle,
+  Row,
+  Col,
 } from 'reactstrap';
 
 function RenderCard({ item }) {
@@ -47,19 +49,17 @@ const { promotion } = this.props.comments;
 
 function Home({ dish, leader, promotion }) {
   return (
-    <div className="container">
-      <div className="row align-items-start">
-        <div className="col-12 col-md m-1">
-          <RenderCard item={dish} />
-        </div>
-        <div className="col-12 col-md m-1">
-          <RenderCard item={promotion} />
-        </div>
-        <div className="col-12 col-md m-1">
-          <RenderCard item={leader} />
-        </div>
-      </div>
-    </div>
+    <>
+      <Col>
+        <RenderCard item={dish} />
+      </Col>
+      <Col>
+        <RenderCard item={promotion} />
+      </Col>
+      <Col>
+        <RenderCard item={leader} />
+      </Col>
+    </>
   );
 }
 

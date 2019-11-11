@@ -43,12 +43,23 @@ class CommentForm extends Component {
 
   // eslint-disable-next-line class-methods-use-this
   handleSubmit(values) {
-    console.log(`Current State is: ${JSON.stringify(values)}`);
-    alert(`Current State is: ${JSON.stringify(values)}`);
+    console.log('THIS IS THE VALUES', values);
+    console.log('These are the DISHID', this.props.dishId);
+    this.toggleModal();
+    this.props.addComment(
+      this.props.dishId,
+      values.rating,
+      values.author,
+      values.comment
+    );
+    /*  console.log(`Current State is: ${JSON.stringify(values)}`);
+     alert(`Current State is: ${JSON.stringify(values)}`); */
     // event.preventDefault();
   }
 
   render() {
+    console.log('THIS IS INSIDE COMMENTFORM', this.props.addComment);
+
     const { isModalOpen } = this.state;
 
     const required = val => val && val.length;
@@ -64,48 +75,34 @@ class CommentForm extends Component {
     return (
       <>
         <Button outline onClick={this.toggleModal}>
-          <span className="fa fa-pencil fa-lg"></span> Submit Comment
+          <span className="fa fa-pencil fa-lg"></span>Submit Comment
         </Button>
-
         <Modal isOpen={isModalOpen} toggle={this.toggleModal}>
           <ModalHeader toggle={this.toggleModal}>Login</ModalHeader>
           <ModalBody>
             <LocalForm onSubmit={values => this.handleSubmit(values)}>
               <Row className="form-group">
-                <Label htmlFor="lastname" md={2}>
+                <Label htmlFor="rating" md={2}>
                   Last Name
                 </Label>
                 <Col md={10}>
-                  <Control.select
-                    model=".select"
-                    id="lastname"
-                    name="lastname"
-                    placeholder="Last Name"
-                    className="form-control"
-                  >
-                    <option value="1">1</option>
-                    <option value="2">2</option>
+                  <Control.select model="user.faveColor" id="user.faveColor">
+                    <option value="1">2</option>
+                    <option value="2">3</option>
                     <option value="3">3</option>
-                    <option value="2">4</option>
-                    <option value="3">5</option>
-                    <option value="2">6</option>
-                    <option value="3">7</option>
-                    <option value="2">8</option>
-                    <option value="3">9</option>
-                    <option value="2">10</option>
                   </Control.select>
                 </Col>
               </Row>
               <Row className="form-group">
-                <Label htmlFor="firstname" md={2}>
+                <Label htmlFor="author" md={2}>
                   First Name
                 </Label>
                 <Col md={10}>
                   <Control.text
-                    model=".firstname"
-                    id="firstname"
-                    name="firstname"
-                    placeholder="First Name"
+                    model=".author"
+                    id="author"
+                    name="author"
+                    placeholder="Your Name"
                     className="form-control"
                     validators={{
                       required,
@@ -115,7 +112,7 @@ class CommentForm extends Component {
                   />
                   <Errors
                     className="text-danger"
-                    model=".firstname"
+                    model=".author"
                     show="touched"
                     messages={{
                       required: 'Required',
@@ -126,14 +123,14 @@ class CommentForm extends Component {
                 </Col>
               </Row>
               <Row className="form-group">
-                <Label htmlFor="message" md={2}>
+                <Label htmlFor="comment" md={2}>
                   Your Feedback
                 </Label>
                 <Col md={10}>
                   <Control.textarea
-                    model=".message"
-                    id="message"
-                    name="message"
+                    model=".comment"
+                    id="comment"
+                    name="comment"
                     rows="6"
                     className="form-control"
                   />

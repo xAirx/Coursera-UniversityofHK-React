@@ -97,7 +97,7 @@ class Header extends Component {
         <Navbar dark expand="md">
           <div className="container">
             <NavbarToggler onClick={this.toggleNav} />
-            <NavbarBrand className="mr-auto" href="/">
+            <NavbarBrand className="" href="/">
               <img
                 src="assets/images/logo.png"
                 height="30"
@@ -138,15 +138,51 @@ class Header extends Component {
           </div>
         </Navbar>
         <Jumbotron>
-          <div className="container">
-            <div className="row row-header">
-              <div className="col-12 col-sm-6">
-                <h1>Ristorante con Fusion</h1>
-                <p>
-                  We take inspiration from the World's best cuisines, and create
-                  a unique fusion experience. Our lipsmacking creations will
-                  tickle your culinary senses!
-                </p>
+          <div className="row">
+            <div className="jubotext col-8 col-sm-6">
+              <h1>Ristorante con Fusion</h1>
+              <p>
+                We take inspiration from the World's best cuisines, and create a
+                unique fusion experience. Our lipsmacking creations will tickle
+                your culinary senses!
+              </p>
+            </div>
+
+            <div className="socialmedia col-4 col-sm-4 align-self-center">
+              <div className="text-center">
+                <a
+                  className="btn btn-social-icon btn-google"
+                  href="http://google.com/+"
+                >
+                  <i className="fa fa-google-plus"></i>
+                </a>
+                <a
+                  className="btn btn-social-icon btn-facebook"
+                  href="http://www.facebook.com/profile.php?id="
+                >
+                  <i className="fa fa-facebook"></i>
+                </a>
+                <a
+                  className="btn btn-social-icon btn-linkedin"
+                  href="http://www.linkedin.com/in/"
+                >
+                  <i className="fa fa-linkedin"></i>
+                </a>
+                <a
+                  className="btn btn-social-icon btn-twitter"
+                  href="http://twitter.com/"
+                >
+                  <i className="fa fa-twitter"></i>
+                </a>
+                <a
+                  className="btn btn-social-icon btn-google"
+                  href="http://youtube.com/"
+                >
+                  <i className="fa fa-youtube"></i>
+                </a>
+                <a className="btn btn-social-icon" href="mailto:">
+                  <i className="fa fa-envelope-o"></i>
+                </a>
               </div>
             </div>
           </div>

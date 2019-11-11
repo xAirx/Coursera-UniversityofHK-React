@@ -9,7 +9,12 @@ import Footer from './FooterComponent';
 import Home from './HomeComponent';
 import Contact from './ContactComponent';
 import About from './AboutComponent';
+import { addComment } from '../redux/ActionCreators';
 
+const mapDispatchToProps = dispatch => ({
+  addComment: (dishId, rating, author, comment) =>
+    dispatch(addComment(dishId, rating, author, comment)),
+});
 // WIll map the redux stores state in the props that will become available to my component.
 const mapStateToProps = state => ({
   // obtaining the state from the redux store.
@@ -81,6 +86,7 @@ Here we iterate over children and find the first one that matches path. */}
                 comments={comments.filter(
                   comment => comment.dishId === Number(match.params.dishId)
                 )}
+                addComment={this.props.addComment}
               />
             )}
           />
@@ -108,8 +114,12 @@ Main.propTypes = {
 
 // connecting main component to the redux store so they can talk.
 // Wrapping everything with withRouter so our routing works with redux aswell.
-export default withRouter(connect(mapStateToProps)(Main));
-
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(Main)
+);
 // Functional component sending props to Home component
 // Make it prettier in the router..
 // Here we are sending the featured dish/leader/promotion.
