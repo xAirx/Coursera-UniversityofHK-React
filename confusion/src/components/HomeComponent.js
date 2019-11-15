@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import {
   Card,
   CardImg,
@@ -8,56 +7,71 @@ import {
   CardBody,
   CardTitle,
   CardSubtitle,
-  Row,
   Col,
 } from 'reactstrap';
+import { Loading } from './LoadingComponent';
+import { baseUrl } from '../shared/baseUrl';
+import { FadeTransform } from 'react-animation-components';
 
-function RenderCard({ item }) {
+
+function RenderCard({ item, isLoading, errMess }) {
+  if (isLoading) {
+    return <Loading />;
+  }
+  if (errMess) {
+    return <h4>{errMess}</h4>;
+  }
   return (
+    <FadeTransform
+    in
+    transformProps={{
+        exitTransform: 'scale(0.5) translateY(-50%)'
+    }}>
     <Card>
-      <CardImg src={item.image} alt={item.name} />
+      <CardImg src={baseUrl + item.image} alt={item.name} />
       <CardBody>
         <CardTitle>{item.name}</CardTitle>
-
-        {/* if designation is not null we render as cardsubtitle
-        card designation exists only for the leader.
-        make sure that designation is conditionally rendered for leaders.
-        */}
-
         {item.designation ? (
           <CardSubtitle>{item.designation}</CardSubtitle>
         ) : null}
-
         <CardText>{item.description}</CardText>
       </CardBody>
     </Card>
+    </FadeTransform>
   );
 }
 
 RenderCard.propTypes = {
   item: PropTypes.object.isRequired,
 };
-
-/* const { name } = this.props.dish.name; */
-/* const { dish } = this.props.dish;
-const { leader } = this.props.comments;
-const { promotion } = this.props.comments;
- */
+/*
+const { name } = this.props.dish.name;
+const { dish } = this.props.dish;
+const { leader } = this.props.leaders;
+const { promotion } = this.props.comments; */
 
 /* function Home(props) {
  */
 
-function Home({ dish, leader, promotion }) {
+function Home(props) {
   return (
     <>
       <Col>
-        <RenderCard item={dish} />
+        <RenderCard
+          item={props.dish}
+          isLoading={props.dishesLoading}
+          errMess={props.dishesErrMess}
+        />
       </Col>
       <Col>
-        <RenderCard item={promotion} />
+        <RenderCard
+          item={props.promotion}
+          isLoading={props.promosLoading}
+          errMess={props.promosErrMess}
+        />
       </Col>
       <Col>
-        <RenderCard item={leader} />
+        <RenderCard item={props.leader} />
       </Col>
     </>
   );

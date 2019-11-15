@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FadeTransform, Fade, Stagger } from 'react-animation-components';
 
 import {
   Breadcrumb,
@@ -13,23 +14,32 @@ import {
   CardTitle,
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import { baseUrl } from '../shared/baseUrl';
 
 function RenderLeaders({ leaders }) {
   if (leaders != null)
     return (
-      <Card>
-        <CardBody>
-          <div className="row">
-            <div className="col-2">
-              <CardImg top src={leaders.image} alt={leaders.name} />
-            </div>
-            <div className="col-10">
-              <CardTitle>{leaders.name}</CardTitle>
-              <CardText>{leaders.description}</CardText>
-            </div>
-          </div>
-        </CardBody>
-      </Card>
+      <Stagger in>
+        <Card>
+          <Fade in>
+            <CardBody>
+              <div className="row">
+                <div className="col-2">
+                  <CardImg
+                    width="100%"
+                    src={baseUrl + leaders.image}
+                    alt={leaders.name}
+                  />
+                </div>
+                <div className="col-10">
+                  <CardTitle>{leaders.name}</CardTitle>
+                  <CardText>{leaders.description}</CardText>
+                </div>
+              </div>
+            </CardBody>
+          </Fade>
+        </Card>
+      </Stagger>
     );
   return <div></div>;
 }

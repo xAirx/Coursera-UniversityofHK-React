@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 
 import {
   Button,
@@ -8,11 +7,10 @@ import {
   ModalBody,
   Row,
   Col,
-  Form,
-  FormGroup,
-  Input,
   Label,
 } from 'reactstrap';
+
+import { FadeTransform, Fade, Stagger } from 'react-animation-components';
 
 import { Control, LocalForm, Errors } from 'react-redux-form';
 
@@ -46,7 +44,7 @@ class CommentForm extends Component {
     console.log('THIS IS THE VALUES', values);
     console.log('These are the DISHID', this.props.dishId);
     this.toggleModal();
-    this.props.addComment(
+    this.props.postComment(
       this.props.dishId,
       values.rating,
       values.author,
@@ -58,7 +56,7 @@ class CommentForm extends Component {
   }
 
   render() {
-    console.log('THIS IS INSIDE COMMENTFORM', this.props.addComment);
+    console.log('THIS IS INSIDE COMMENTFORM', this.props.postComment);
 
     const { isModalOpen } = this.state;
 
@@ -68,9 +66,10 @@ class CommentForm extends Component {
     const maxLength = len => val => !val || val.length <= len;
     const minLength = len => val => val && val.length >= len;
     // eslint-disable-next-line no-restricted-globals
-    const isNumber = val => !isNaN(Number(val));
+
+    /* const isNumber = val => !isNaN(Number(val));
     const validEmail = val =>
-      /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(val);
+      /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(val); */
 
     return (
       <>
@@ -86,11 +85,14 @@ class CommentForm extends Component {
                   Last Name
                 </Label>
                 <Col md={10}>
-                  <Control.select model="user.faveColor" id="user.faveColor">
-                    <option value="1">2</option>
-                    <option value="2">3</option>
-                    <option value="3">3</option>
-                  </Control.select>
+                  <Fade in>
+                    <Control.select model="user.faveColor" id="user.faveColor">
+                      <option value="1">1</option>
+                      <option value="2">3</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                    </Control.select>
+                  </Fade>
                 </Col>
               </Row>
               <Row className="form-group">
