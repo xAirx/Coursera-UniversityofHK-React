@@ -1,4 +1,4 @@
-import * as ActionTypes from './ActionTypes';
+import * as ActionTypes from '../Api/ActionTypes';
 
 export const Promotions = (
   state = {

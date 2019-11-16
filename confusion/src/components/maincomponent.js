@@ -1,3 +1,4 @@
+/* eslint-disable react/destructuring-assignment */
 import React, { Component } from 'react';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -18,7 +19,7 @@ import {
   fetchComments,
   fetchPromos,
   fetchLeaders,
-} from '../redux/ActionCreators';
+} from '../redux/Api/ActionCreators';
 
 const mapDispatchToProps = dispatch => ({
   fetchComments: () => dispatch(fetchComments()),
@@ -75,33 +76,9 @@ class Main extends Component {
   }
 
   render() {
-    /*     const { name } = this.state.dish.name;
-     */
-    /*  Pulls out this.state.dishes and creates a const containing dishes */
-
-    // These are arrays passed from the store.
-    /* const { dishes } = this.props; */
-    /* const { comments } = this.props; */
-    /*  const { leaders } = this.props;
-     const { promotions } = this.props; */
-
-    // Functional component sending props to DishDetail component
-    // we are passing the matched route into the function
-    // we will use the match.params to get the params from the route
-    // That we need to send the correct dish.Id clicked to DishDetail
-    // Presentational Component for rendering.
-
-    // Filter SECTION
-
-    /* const featureddish = dishes.dishes.filter(dish => dish.featured)[0];
-    const featuredpromotion = promotions.filter(promo => promo.featured)[0];
-    const featuredleaders = leaders.filter(lead => lead.featured)[0]; */
-
     return (
       <>
         <Header />
-        {/* Switch enables me to group routes together.
-Here we iterate over children and find the first one that matches path. */}
 
         <TransitionGroup>
           <CSSTransition
@@ -110,8 +87,6 @@ Here we iterate over children and find the first one that matches path. */}
             timeout={300}
           >
             <Switch location={this.props.location}>
-              {/* Passing functional component into route for home. */}
-
               <Route
                 path="/home"
                 component={() => (
@@ -197,10 +172,17 @@ Here we iterate over children and find the first one that matches path. */}
 }
 
 Main.propTypes = {
-  dishes: PropTypes.array.isRequired,
-  comments: PropTypes.array.isRequired,
-  leaders: PropTypes.array.isRequired,
-  promotions: PropTypes.array.isRequired,
+  dishes: PropTypes.object.isRequired,
+  comments: PropTypes.object.isRequired,
+  leaders: PropTypes.object.isRequired,
+  promotions: PropTypes.object.isRequired,
+  resetFeedbackForm: PropTypes.object.isRequired,
+  postFeedback: PropTypes.object.isRequired,
+  location: PropTypes.object.isRequired,
+  fetchDishes: PropTypes.object.isRequired,
+  fetchPromos: PropTypes.object.isRequired,
+  fetchLeaders: PropTypes.object.isRequired,
+  fetchComments: PropTypes.object.isRequired,
 };
 
 // connecting main component to the redux store so they can talk.
@@ -211,19 +193,3 @@ export default withRouter(
     mapDispatchToProps
   )(Main)
 );
-// Functional component sending props to Home component
-// Make it prettier in the router..
-// Here we are sending the featured dish/leader/promotion.
-
-/* Filter returns an array so we select the first index.
-That is featured first index of array.
-filter returns new array with the features dish.
-*/
-
-/*    const HomePage = () => (
-<Home
-dish={dishes.filter(dish => dish.featured)[0]}
-promotion={promotions.filter(promo => promo.featured)[0]}
-leader={leaders.filter(leader => leader.featured)[0]}
-/>
-); */

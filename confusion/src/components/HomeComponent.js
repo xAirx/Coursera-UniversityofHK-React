@@ -1,3 +1,4 @@
+/* eslint-disable react/destructuring-assignment */
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
@@ -9,10 +10,9 @@ import {
   CardSubtitle,
   Col,
 } from 'reactstrap';
+import { FadeTransform } from 'react-animation-components';
 import { Loading } from './LoadingComponent';
 import { baseUrl } from '../shared/baseUrl';
-import { FadeTransform } from 'react-animation-components';
-
 
 function RenderCard({ item, isLoading, errMess }) {
   if (isLoading) {
@@ -23,35 +23,30 @@ function RenderCard({ item, isLoading, errMess }) {
   }
   return (
     <FadeTransform
-    in
-    transformProps={{
-        exitTransform: 'scale(0.5) translateY(-50%)'
-    }}>
-    <Card>
-      <CardImg src={baseUrl + item.image} alt={item.name} />
-      <CardBody>
-        <CardTitle>{item.name}</CardTitle>
-        {item.designation ? (
-          <CardSubtitle>{item.designation}</CardSubtitle>
-        ) : null}
-        <CardText>{item.description}</CardText>
-      </CardBody>
-    </Card>
+      in
+      transformProps={{
+        exitTransform: 'scale(0.5) translateY(-50%)',
+      }}
+    >
+      <Card>
+        <CardImg src={baseUrl + item.image} alt={item.name} />
+        <CardBody>
+          <CardTitle>{item.name}</CardTitle>
+          {item.designation ? (
+            <CardSubtitle>{item.designation}</CardSubtitle>
+          ) : null}
+          <CardText>{item.description}</CardText>
+        </CardBody>
+      </Card>
     </FadeTransform>
   );
 }
 
 RenderCard.propTypes = {
   item: PropTypes.object.isRequired,
+  isLoading: PropTypes.object.isRequired,
+  errMess: PropTypes.object.isRequired,
 };
-/*
-const { name } = this.props.dish.name;
-const { dish } = this.props.dish;
-const { leader } = this.props.leaders;
-const { promotion } = this.props.comments; */
-
-/* function Home(props) {
- */
 
 function Home(props) {
   return (
@@ -81,6 +76,10 @@ Home.propTypes = {
   dish: PropTypes.object.isRequired,
   leader: PropTypes.object.isRequired,
   promotion: PropTypes.object.isRequired,
+  dishesLoading: PropTypes.object.isRequired,
+  dishesErrMess: PropTypes.object.isRequired,
+  promosLoading: PropTypes.object.isRequired,
+  promosErrMess: PropTypes.object.isRequired,
 };
 
 export default Home;

@@ -10,7 +10,9 @@ import {
   Label,
 } from 'reactstrap';
 
-import { FadeTransform, Fade, Stagger } from 'react-animation-components';
+import PropTypes from 'prop-types';
+
+import { Fade } from 'react-animation-components';
 
 import { Control, LocalForm, Errors } from 'react-redux-form';
 
@@ -27,13 +29,6 @@ class CommentForm extends Component {
   }
 
   toggleModal() {
-    // destructing in function argument
-    // we know inside this.state(state,props);
-    // state comes first into setstate and then props.
-    // if we wanted to destrucrure state and then props we would do the following:
-
-    /*     this.setState(({ isNavOpen}, { props })) */
-
     this.setState(({ isModalOpen }) => ({
       isModalOpen: !isModalOpen,
     }));
@@ -41,48 +36,36 @@ class CommentForm extends Component {
 
   // eslint-disable-next-line class-methods-use-this
   handleSubmit(values) {
+    const { dishId, postComment } = this.props;
     console.log('THIS IS THE VALUES', values);
-    console.log('These are the DISHID', this.props.dishId);
+    console.log('These are the DISHID', dishId);
     this.toggleModal();
-    this.props.postComment(
-      this.props.dishId,
-      values.rating,
-      values.author,
-      values.comment
-    );
+    postComment(dishId, values.rating, values.author, values.comment);
     /*  console.log(`Current State is: ${JSON.stringify(values)}`);
      alert(`Current State is: ${JSON.stringify(values)}`); */
     // event.preventDefault();
   }
 
   render() {
-    console.log('THIS IS INSIDE COMMENTFORM', this.props.postComment);
+    const { postComment } = this.props;
+    console.log('THIS IS INSIDE COMMENTFORM', postComment);
 
     const { isModalOpen } = this.state;
 
     const required = val => val && val.length;
 
-    // A function of functions.
     const maxLength = len => val => !val || val.length <= len;
     const minLength = len => val => val && val.length >= len;
-    // eslint-disable-next-line no-restricted-globals
-
-    /* const isNumber = val => !isNaN(Number(val));
-    const validEmail = val =>
-      /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(val); */
 
     return (
       <>
-        <Button outline onClick={this.toggleModal}>
-          <span className="fa fa-pencil fa-lg"></span>Submit Comment
-        </Button>
         <Modal isOpen={isModalOpen} toggle={this.toggleModal}>
           <ModalHeader toggle={this.toggleModal}>Login</ModalHeader>
           <ModalBody>
             <LocalForm onSubmit={values => this.handleSubmit(values)}>
               <Row className="form-group">
-                <Label htmlFor="rating" md={2}>
-                  Last Name
+                <Label htmlFor="rating" md={12}>
+                  Rating
                 </Label>
                 <Col md={10}>
                   <Fade in>
@@ -96,10 +79,10 @@ class CommentForm extends Component {
                 </Col>
               </Row>
               <Row className="form-group">
-                <Label htmlFor="author" md={2}>
+                <Label htmlFor="author" md={12}>
                   First Name
                 </Label>
-                <Col md={10}>
+                <Col md={6}>
                   <Control.text
                     model=".author"
                     id="author"
@@ -125,7 +108,7 @@ class CommentForm extends Component {
                 </Col>
               </Row>
               <Row className="form-group">
-                <Label htmlFor="comment" md={2}>
+                <Label htmlFor="comment" md={12}>
                   Your Feedback
                 </Label>
                 <Col md={10}>
@@ -139,7 +122,7 @@ class CommentForm extends Component {
                 </Col>
               </Row>
               <Row className="form-group">
-                <Col md={{ size: 10, offset: 2 }}>
+                <Col md={{ size: 10, offset: 0 }}>
                   <Button type="submit" color="primary">
                     Send Feedback
                   </Button>
@@ -148,9 +131,17 @@ class CommentForm extends Component {
             </LocalForm>
           </ModalBody>
         </Modal>
+        <Button outline onClick={this.toggleModal}>
+          <span className="fa fa-pencil fa-lg"></span>Submit Feedback
+        </Button>
       </>
     );
   }
 }
+
+CommentForm.propTypes = {
+  postComment: PropTypes.object.isRequired,
+  dishId: PropTypes.object.isRequired,
+};
 
 export default CommentForm;

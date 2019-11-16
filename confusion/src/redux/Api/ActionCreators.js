@@ -1,5 +1,5 @@
 import * as ActionTypes from './ActionTypes';
-import { baseUrl } from '../shared/baseUrl';
+import { baseUrl } from '../../shared/baseUrl';
 
 export const addFeedback = feedback => ({
   type: ActionTypes.ADD_FEEDBACK,
@@ -56,6 +56,9 @@ export const postFeedback = (
       alert(`Your comment could not be posted\nError: ${error.message}`);
     });
 };
+
+// ////////////////////////////////////////////////////////////////////////////////
+// ////////////////////////////////////////////////////////////////////////////////
 
 export const dishesLoading = () => ({
   type: ActionTypes.DISHES_LOADING,

@@ -1,4 +1,4 @@
-import * as ActionTypes from './ActionTypes';
+import * as ActionTypes from '../Api/ActionTypes';
 
 export const Comments = (state = { errMess: null, comments: [] }, action) => {
   switch (action.type) {
@@ -14,6 +14,7 @@ export const Comments = (state = { errMess: null, comments: [] }, action) => {
       return { ...state, errMess: action.payload };
 
     case ActionTypes.ADD_COMMENT:
+      // eslint-disable-next-line no-case-declarations
       const comment = action.payload;
       return { ...state, comments: state.comments.concat(comment) };
 

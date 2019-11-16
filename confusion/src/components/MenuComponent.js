@@ -30,17 +30,14 @@ RenderMenuItem.propTypes = {
   dish: PropTypes.object.isRequired,
 };
 
-/* const Menu = dishes props => {
-  const menu = this.props.map(dish => (
- */
-
 const Menu = ({ dishes }) => {
   const menu = dishes.dishes.map(dish => (
-    <div className="col-12 col-md-5 m-1" key={dish.id}>
+    <div className="col-12 m-1" key={dish.id}>
       {/* Dishes is destructured out of "props" */}
       <RenderMenuItem dish={dish} onClick={dishes.dishes.onClick} />
     </div>
   ));
+
   if (dishes.dishes.isLoading) {
     return (
       <div className="container">
@@ -50,6 +47,7 @@ const Menu = ({ dishes }) => {
       </div>
     );
   }
+
   if (dishes.dishes.errMess) {
     return (
       <div className="container">
@@ -61,6 +59,7 @@ const Menu = ({ dishes }) => {
       </div>
     );
   }
+
   return (
     <div className="container">
       <div className="row">
@@ -68,14 +67,13 @@ const Menu = ({ dishes }) => {
           <BreadcrumbItem>
             <Link to="/home">Home</Link>
           </BreadcrumbItem>
-          <BreadcrumbItem active>Menu</BreadcrumbItem>
+          <BreadcrumbItem active>{Menu}</BreadcrumbItem>
         </Breadcrumb>
         <div className="col-12">
-          <h3>Menu</h3>
           <hr />
         </div>
       </div>
-      <div className="row">{menu}</div>
+      <div className="column col-12">{menu}</div>
     </div>
   );
 };

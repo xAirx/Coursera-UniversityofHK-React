@@ -33,28 +33,6 @@ class Header extends Component {
     };
   }
 
-  // / rewrite to template literal
-
-  /*  alert(
-     'Username: ' +
-       this.username.value +
-       ' Password: ' +
-       this.password.value +
-       ' Remember: ' +
-       this.remember.checked
-   ); */
-
-  // Template literals helps with whitespace in general, also enables us to run javascript inside, example:
-  // Takes out the javascript in the $ and returns as string.
-  // Backticks enable us to run javascript with dollar qoutes anywhere within.
-
-  /* const test = 54
-
-    `My age is ${test}`; */
-  // My age is 54
-
-  /*   console.log(`My age is ${test > 50 ? `test is bigger than 50` : `false`}`); */
-
   handleLogin(event) {
     this.toggleModal();
     alert(
@@ -64,26 +42,12 @@ class Header extends Component {
   }
 
   toggleModal() {
-    // destructing in function argument
-    // we know inside this.state(state,props);
-    // state comes first into setstate and then props.
-    // if we wanted to destrucrure state and then props we would do the following:
-
-    /*     this.setState(({ isNavOpen}, { props })) */
-
     this.setState(({ isModalOpen }) => ({
       isModalOpen: !isModalOpen,
     }));
   }
 
   toggleNav() {
-    // destructing in function argument
-    // we know inside this.state(state,props);
-    // state comes first into setstate and then props.
-    // if we wanted to destrucrure state and then props we would do the following:
-
-    /*     this.setState(({ isNavOpen}, { props })) */
-
     this.setState(({ isNavOpen }) => ({
       isNavOpen: !isNavOpen,
     }));
@@ -97,40 +61,36 @@ class Header extends Component {
         <Navbar dark expand="md">
           <div className="container">
             <NavbarToggler onClick={this.toggleNav} />
-            <NavbarBrand className="" href="/">
-              <img
-                src="assets/images/logo.png"
-                height="30"
-                width="41"
-                alt="Ristorante Con Fusion"
-              />
-            </NavbarBrand>
+            <NavbarBrand className="" href="/"></NavbarBrand>
             <Collapse isOpen={isNavOpen} navbar>
               <Nav navbar>
                 <NavItem>
                   <NavLink className="nav-link" to="/home">
-                    <span className="fa fa-home fa-lg"></span> Home
+                    Home
                   </NavLink>
                 </NavItem>
                 <NavItem>
                   <NavLink className="nav-link" to="/about">
-                    <span className="fa fa-info fa-lg"></span> About Us
+                    About Us
                   </NavLink>
                 </NavItem>
                 <NavItem>
                   <NavLink className="nav-link" to="/menu">
-                    <span className="fa fa-list fa-lg"></span> Menu
+                    Menu
                   </NavLink>
                 </NavItem>
                 <NavItem>
                   <NavLink className="nav-link" to="/contactus">
-                    <span className="fa fa-address-card fa-lg"></span> Contact
-                    Us
+                    Contact Us
                   </NavLink>
                 </NavItem>
                 <NavItem>
-                  <Button outline onClick={this.toggleModal}>
-                    <span className="fa fa-sign-in fa-lg"></span> Login
+                  <Button
+                    className="Loginbutton"
+                    outline
+                    onClick={this.toggleModal}
+                  >
+                    Login
                   </Button>
                 </NavItem>
               </Nav>
@@ -138,54 +98,12 @@ class Header extends Component {
           </div>
         </Navbar>
         <Jumbotron>
-          <div className="row">
-            <div className="jubotext col-8 col-sm-6">
-              <h1>Ristorante con Fusion</h1>
-              <p>
-                We take inspiration from the World's best cuisines, and create a
-                unique fusion experience. Our lipsmacking creations will tickle
-                your culinary senses!
-              </p>
-            </div>
-
-            <div className="socialmedia col-4 col-sm-4 align-self-center">
-              <div className="text-center">
-                <a
-                  className="btn btn-social-icon btn-google"
-                  href="http://google.com/+"
-                >
-                  <i className="fa fa-google-plus"></i>
-                </a>
-                <a
-                  className="btn btn-social-icon btn-facebook"
-                  href="http://www.facebook.com/profile.php?id="
-                >
-                  <i className="fa fa-facebook"></i>
-                </a>
-                <a
-                  className="btn btn-social-icon btn-linkedin"
-                  href="http://www.linkedin.com/in/"
-                >
-                  <i className="fa fa-linkedin"></i>
-                </a>
-                <a
-                  className="btn btn-social-icon btn-twitter"
-                  href="http://twitter.com/"
-                >
-                  <i className="fa fa-twitter"></i>
-                </a>
-                <a
-                  className="btn btn-social-icon btn-google"
-                  href="http://youtube.com/"
-                >
-                  <i className="fa fa-youtube"></i>
-                </a>
-                <a className="btn btn-social-icon" href="mailto:">
-                  <i className="fa fa-envelope-o"></i>
-                </a>
-              </div>
-            </div>
-          </div>
+          <h1>Ristorante con Fusion</h1>
+          <p>
+            We take inspiration from the World's best cuisines, and create a
+            unique fusion experience. Our lipsmacking creations will tickle your
+            culinary senses!
+          </p>
         </Jumbotron>
         <Modal isOpen={isModalOpen} toggle={this.toggleModal}>
           <ModalHeader toggle={this.toggleModal}>Login</ModalHeader>
@@ -218,10 +136,15 @@ class Header extends Component {
                   />
                   Remember me
                 </Label>
+                <Button
+                  className="loginbutton"
+                  type="submit"
+                  value="submit"
+                  color="primary"
+                >
+                  Login
+                </Button>
               </FormGroup>
-              <Button type="submit" value="submit" color="primary">
-                Login
-              </Button>
             </Form>
           </ModalBody>
         </Modal>

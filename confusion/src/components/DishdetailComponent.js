@@ -1,3 +1,4 @@
+/* eslint-disable react/destructuring-assignment */
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
@@ -8,6 +9,7 @@ import {
   CardTitle,
   Breadcrumb,
   BreadcrumbItem,
+  Media,
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { FadeTransform, Fade, Stagger } from 'react-animation-components';
@@ -60,6 +62,8 @@ function RenderDish({ dish, isLoading, errMess }) {
 
 RenderDish.propTypes = {
   dish: PropTypes.object.isRequired,
+  isLoading: PropTypes.object.isRequired,
+  errMess: PropTypes.object.isRequired,
 };
 
 // Make into function component
@@ -89,7 +93,7 @@ function RenderComments({ comments, postComment, dishId }) {
           {comments.map((comment, index) => (
             <ul>
               <Fade in>
-                <li className="list-unstyled" key={index}>
+                <Media className="list-unstyled" key={index}>
                   {comment.comment}
                   <br />
                   <br />
@@ -104,7 +108,7 @@ function RenderComments({ comments, postComment, dishId }) {
                    */}
                   {console.log(typeof comment.date)}
                   {console.log(comment.date)}
-                </li>
+                </Media>
               </Fade>
             </ul>
           ))}
@@ -119,28 +123,13 @@ RenderComments.propTypes = {
   comments: PropTypes.object.isRequired,
 };
 
-// IMPLICIT RETURN WHERE WE DESTRUCTURE ARGUMENTS .
-
-/* const ImplicitRetrun = ({title}) => (
-  <>
-            <h1>{title}</h1>
-          </>
-          ); */
-/*
-if we use {} we have to use return because its explicit return
-
-Just like map and filter and return, they work because of implicit return */
-
-const DishDetail = (
-  props /* { dish, comments, addComment, dish: { name } } */
-) => (
+const DishDetail = props => (
   <div className="container">
     <div className="row">
       <Breadcrumb>
         <BreadcrumbItem>
           <Link to="/menu">Menu</Link>
         </BreadcrumbItem>
-        <BreadcrumbItem active>{props.name}</BreadcrumbItem>
       </Breadcrumb>
       <div className="col-12">
         <h3>{props.name}</h3>
@@ -148,15 +137,17 @@ const DishDetail = (
       </div>
     </div>
     <div className="row">
-      <div className="col-12 col-md-5 m-1">
+      <div className="col-6 col-md-12 m-1">
         <RenderDish dish={props.dish} />
       </div>
-      <div className="col-12 col-md-5 m-1">
-        <RenderComments
-          comments={props.comments}
-          postComment={props.postComment}
-          dishId={props.dish}
-        />
+      <div className="col-4 col-md-12 m-1">
+        <Media className="commentmedia">
+          <RenderComments
+            comments={props.comments}
+            postComment={props.postComment}
+            dishId={props.dish}
+          />
+        </Media>
       </div>
     </div>
   </div>
@@ -165,6 +156,8 @@ const DishDetail = (
 DishDetail.propTypes = {
   dish: PropTypes.object.isRequired,
   comments: PropTypes.object.isRequired,
+  postComment: PropTypes.object.isRequired,
+  name: PropTypes.object.isRequired,
 };
 
 export default DishDetail;

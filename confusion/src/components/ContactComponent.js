@@ -8,8 +8,9 @@ import {
   Row,
   Col,
 } from 'reactstrap';
+import PropTypes from 'prop-types';
 
-import { FadeTransform, Fade, Stagger } from 'react-animation-components';
+import { Fade } from 'react-animation-components';
 
 import { Control, Errors, LocalForm } from 'react-redux-form';
 
@@ -22,9 +23,11 @@ class Contact extends Component {
 
   // eslint-disable-next-line class-methods-use-this
   handleSubmit(values) {
+    const { postFeedback, resetFeedbackForm } = this.props;
+
     console.log(`Current State is: ${JSON.stringify(values)}`);
     alert(`Current State is: ${JSON.stringify(values)}`);
-    this.props.postFeedback(
+    postFeedback(
       values.firstname,
       values.lastname,
       values.telnum,
@@ -33,7 +36,7 @@ class Contact extends Component {
       values.contactType,
       values.message
     );
-    this.props.resetFeedbackForm();
+    resetFeedbackForm();
     // event.preventDefault();
   }
 
@@ -60,232 +63,216 @@ class Contact extends Component {
               </BreadcrumbItem>
               <BreadcrumbItem active>Contact Us</BreadcrumbItem>
             </Breadcrumb>
-            <div className="col-12">
-              <h3>Contact Us</h3>
+            <address className="info">
+              <i className="fa fa-phone"></i>: +852 1234 5678
+              <br />
+              <i className="fa fa-fax"></i>: +852 8765 4321
+              <br />
+              <i className="fa fa-envelope"></i>:
+              <a href="mailto:confusion@food.net">confusion@food.net</a>
+            </address>
+            <div className="col-12 col-sm-6">
               <hr />
             </div>
           </div>
-          <h3>Location Information</h3>
         </div>
-        <div className="col-12 col-sm-4 offset-sm-1">
-          <h5>Our Address</h5>
-          <address>
-            121, Clear Water Bay Road
-            <br />
-            Clear Water Bay, Kowloon
-            <br />
-            HONG KONG
-            <br />
-            <i className="fa fa-phone"></i>: +852 1234 5678
-            <br />
-            <i className="fa fa-fax"></i>: +852 8765 4321
-            <br />
-            <i className="fa fa-envelope"></i>:
-            <a href="mailto:confusion@food.net">confusion@food.net</a>
-          </address>
+        <div className="col-6 col-sm-6 offset-sm-1">
+          <iframe
+            width="500"
+            height="200"
+            id="gmap_canvas"
+            src="https://maps.google.com/maps?q=university%20of%20san%20francisco&t=&z=13&ie=UTF8&iwloc=&output=embed"
+            frameBorder="0"
+            scrolling="no"
+            marginHeight="0"
+            marginWidth="0"
+          ></iframe>
         </div>
-        <div className="col-12 col-sm-6 offset-sm-1">
-          <h5>Map of our Location</h5>
-        </div>
-        <div className="col-12 col-sm-11 offset-sm-1">
-          <div className="btn-group" role="group">
-            <a
-              role="button"
-              className="btn btn-primary"
-              href="tel:+85212345678"
-            >
-              <i className="fa fa-phone"></i> Call
-            </a>
-            <a role="button" className="btn btn-info">
-              <i className="fa fa-skype"></i> Skype
-            </a>
-            <a
-              role="button"
-              className="btn btn-success"
-              href="mailto:confusion@food.net"
-            >
-              <i className="fa fa-envelope-o"></i> Email
-            </a>
-          </div>
-        </div>
-        <hr />
 
-        <LocalForm
-          model="feedback"
-          onSubmit={values => this.handleSubmit(values)}
-        >
-          <Row className="form-group">
-            <Label htmlFor="firstname" md={2}>
-              First Name
-            </Label>
-            <Col md={10}>
-              <Control.text
-                model=".firstname"
-                id="firstname"
-                name="firstname"
-                placeholder="First Name"
-                className="form-control"
-                validators={{
-                  required,
-                  minLength: minLength(3),
-                  maxLength: maxLength(15),
-                }}
-              />
-              <Fade in>
-                <Errors
-                  className="text-danger"
+        <hr />
+        <div className="col-12 col-sm-10 offset-sm-1">
+          <LocalForm
+            model="feedback"
+            onSubmit={values => this.handleSubmit(values)}
+          >
+            <Row className="form-group">
+              <Label htmlFor="firstname" md={2}>
+                First Name
+              </Label>
+              <Col md={10}>
+                <Control.text
                   model=".firstname"
-                  show="touched"
-                  messages={{
-                    required: 'Required',
-                    minLength: 'Must be greater than 2 characters',
-                    maxLength: 'Must be 15 characters or less',
+                  id="firstname"
+                  name="firstname"
+                  placeholder="First Name"
+                  className="form-control"
+                  validators={{
+                    required,
+                    minLength: minLength(3),
+                    maxLength: maxLength(15),
                   }}
                 />
-              </Fade>
-            </Col>
-          </Row>
-          <Row className="form-group">
-            <Label htmlFor="lastname" md={2}>
-              Last Name
-            </Label>
-            <Col md={10}>
-              <Control.text
-                model=".lastname"
-                id="lastname"
-                name="lastname"
-                placeholder="Last Name"
-                className="form-control"
-                validators={{
-                  required,
-                  minLength: minLength(3),
-                  maxLength: maxLength(15),
-                }}
-              />
-              <Fade in>
-                <Errors
-                  className="text-danger"
+                <Fade in>
+                  <Errors
+                    className="text-danger"
+                    model=".firstname"
+                    show="touched"
+                    messages={{
+                      required: 'Required',
+                      minLength: 'Must be greater than 2 characters',
+                      maxLength: 'Must be 15 characters or less',
+                    }}
+                  />
+                </Fade>
+              </Col>
+            </Row>
+            <Row className="form-group">
+              <Label htmlFor="lastname" md={2}>
+                Last Name
+              </Label>
+              <Col md={10}>
+                <Control.text
                   model=".lastname"
-                  show="touched"
-                  messages={{
-                    required: 'Required',
-                    minLength: 'Must be greater than 2 characters',
-                    maxLength: 'Must be 15 characters or less',
+                  id="lastname"
+                  name="lastname"
+                  placeholder="Last Name"
+                  className="form-control"
+                  validators={{
+                    required,
+                    minLength: minLength(3),
+                    maxLength: maxLength(15),
                   }}
                 />
-              </Fade>
-            </Col>
-          </Row>
-          <Row className="form-group">
-            <Label htmlFor="telnum" md={2}>
-              Contact Tel.
-            </Label>
-            <Col md={10}>
-              <Control.text
-                model=".telnum"
-                id="telnum"
-                name="telnum"
-                placeholder="Tel. Number"
-                className="form-control"
-                validators={{
-                  required,
-                  minLength: minLength(3),
-                  maxLength: maxLength(15),
-                  isNumber,
-                }}
-              />
-              <Fade in>
-                <Errors
-                  className="text-danger"
+                <Fade in>
+                  <Errors
+                    className="text-danger"
+                    model=".lastname"
+                    show="touched"
+                    messages={{
+                      required: 'Required',
+                      minLength: 'Must be greater than 2 characters',
+                      maxLength: 'Must be 15 characters or less',
+                    }}
+                  />
+                </Fade>
+              </Col>
+            </Row>
+            <Row className="form-group">
+              <Label htmlFor="telnum" md={2}>
+                Contact Tel.
+              </Label>
+              <Col md={10}>
+                <Control.text
                   model=".telnum"
-                  show="touched"
-                  messages={{
-                    required: 'Required',
-                    minLength: 'Must be greater than 2 numbers',
-                    maxLength: 'Must be 15 numbers or less',
-                    isNumber: 'Must be a number',
+                  id="telnum"
+                  name="telnum"
+                  placeholder="Tel. Number"
+                  className="form-control"
+                  validators={{
+                    required,
+                    minLength: minLength(3),
+                    maxLength: maxLength(15),
+                    isNumber,
                   }}
                 />
-              </Fade>
-            </Col>
-          </Row>
-          <Row className="form-group">
-            <Label htmlFor="email" md={2}>
-              Email
-            </Label>
-            <Col md={10}>
-              <Control.text
-                model=".email"
-                id="email"
-                name="email"
-                placeholder="Email"
-                className="form-control"
-                validators={{
-                  required,
-                  validEmail,
-                }}
-              />
-              <Fade in>
-                <Errors
-                  className="text-danger"
+                <Fade in>
+                  <Errors
+                    className="text-danger"
+                    model=".telnum"
+                    show="touched"
+                    messages={{
+                      required: 'Required',
+                      minLength: 'Must be greater than 2 numbers',
+                      maxLength: 'Must be 15 numbers or less',
+                      isNumber: 'Must be a number',
+                    }}
+                  />
+                </Fade>
+              </Col>
+            </Row>
+            <Row className="form-group">
+              <Label htmlFor="email" md={2}>
+                Email
+              </Label>
+              <Col md={10}>
+                <Control.text
                   model=".email"
-                  show="touched"
-                  messages={{
-                    required: 'Required',
-                    validEmail: 'Invalid Email Address',
+                  id="email"
+                  name="email"
+                  placeholder="Email"
+                  className="form-control"
+                  validators={{
+                    required,
+                    validEmail,
                   }}
                 />
-              </Fade>
-            </Col>
-          </Row>
-          <Row className="form-group">
-            <Col md={{ size: 6, offset: 2 }}>
-              <div className="form-check">
-                <Label check>
-                  <Control.checkbox
-                    model=".agree"
-                    name="agree"
-                    className="form-check-input"
-                  />{' '}
-                  <strong>May we contact you?</strong>
-                </Label>
-              </div>
-            </Col>
-            <Col md={{ size: 3, offset: 1 }}>
-              <Control.select
-                model=".contactType"
-                name="contactType"
-                className="form-control"
-              >
-                <option>Tel.</option>
-                <option>Email</option>
-              </Control.select>
-            </Col>
-          </Row>
-          <Row className="form-group">
-            <Label htmlFor="message" md={2}>
-              Your Feedback
-            </Label>
-            <Col md={10}>
-              <Control.textarea
-                model=".message"
-                id="message"
-                name="message"
-                rows="12"
-                className="form-control"
-              />
-            </Col>
-          </Row>
-          <Row className="form-group">
-            <Col md={{ size: 10, offset: 2 }}>
-              <Button type="submit" color="primary">
-                Send Feedback
-              </Button>
-            </Col>
-          </Row>
-        </LocalForm>
+                <Fade in>
+                  <Errors
+                    className="text-danger"
+                    model=".email"
+                    show="touched"
+                    messages={{
+                      required: 'Required',
+                      validEmail: 'Invalid Email Address',
+                    }}
+                  />
+                </Fade>
+              </Col>
+            </Row>
+            <Row className="form-group">
+              <Col md={{ size: 6, offset: 2 }}>
+                <div className="form-check">
+                  <Label check>
+                    <Control.checkbox
+                      model=".agree"
+                      name="agree"
+                      className="form-check-input"
+                    />{' '}
+                    <strong>May we contact you?</strong>
+                  </Label>
+                </div>
+              </Col>
+              <Col md={{ size: 3, offset: 1 }}>
+                <Control.select
+                  model=".contactType"
+                  name="contactType"
+                  className="form-control"
+                >
+                  <option>Tel.</option>
+                  <option>Email</option>
+                </Control.select>
+              </Col>
+            </Row>
+            <Row className="form-group">
+              <Label htmlFor="message" md={2}>
+                Your Feedback
+              </Label>
+              <Col md={10}>
+                <Control.textarea
+                  model=".message"
+                  id="message"
+                  name="message"
+                  rows="12"
+                  className="form-control"
+                />
+              </Col>
+            </Row>
+            <Row className="form-group">
+              <Col md={{ size: 10, offset: 2 }}>
+                <Button type="submit" color="primary">
+                  Send Feedback
+                </Button>
+              </Col>
+            </Row>
+          </LocalForm>
+        </div>
       </div>
     );
   }
 }
+
+Contact.propTypes = {
+  postFeedback: PropTypes.object.isRequired,
+  resetFeedbackForm: PropTypes.object.isRequired,
+};
 export default Contact;
