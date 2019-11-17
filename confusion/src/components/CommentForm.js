@@ -60,7 +60,7 @@ class CommentForm extends Component {
     return (
       <>
         <Modal isOpen={isModalOpen} toggle={this.toggleModal}>
-          <ModalHeader toggle={this.toggleModal}>Login</ModalHeader>
+          <ModalHeader toggle={this.toggleModal}>Comment</ModalHeader>
           <ModalBody>
             <LocalForm onSubmit={values => this.handleSubmit(values)}>
               <Row className="form-group">
@@ -133,6 +133,9 @@ class CommentForm extends Component {
         </Modal>
         <Button outline onClick={this.toggleModal}>
           <span className="fa fa-pencil fa-lg"></span>Submit Feedback
+        </Button>
+        <Button outline onClick={this.toggleModal}>
+          <span className="fa fa-heart fa-lg"></span> Favorite
         </Button>
       </>
     );

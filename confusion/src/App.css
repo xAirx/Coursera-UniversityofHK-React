@@ -24,6 +24,21 @@
   transition: all 300ms ease-out;
 }
 
+.nav-tabs {
+  border-bottom: 1px solid #dee2e6;
+  margin-bottom: 30px !important;
+}
+
+.row-content {
+  margin: 0px auto;
+  margin-right: auto;
+  margin-left: auto;
+  padding: 0px 0px 10px 0px !important;
+  border-bottom: 1px ridge;
+  min-height: 400px;
+  border-bottom: 0px ridge !important;
+}
+
 .App-logo {
   height: 40vmin;
 }

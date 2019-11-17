@@ -62,9 +62,7 @@ function About({ leaders }) {
           </BreadcrumbItem>
           <BreadcrumbItem active>About Us</BreadcrumbItem>
         </Breadcrumb>
-        <div className="col-12">
-          <hr />
-        </div>
+        <div className="col-12"></div>
       </div>
       <div className="row row-content">
         <h2>Our History</h2>
@@ -81,29 +79,8 @@ function About({ leaders }) {
           , a successful chain started by our CEO, Mr. Peter Pan, that featured
           for the first time the world's best cuisines in a pan.
         </p>
-
-        <div className="col-8 qoute">
-          <Card>
-            <CardBody className="bg-faded">
-              <blockquote className="blockquote">
-                <p className="mb-0">
-                  You better cut the pizza in four pieces because I'm not hungry
-                  enough to eat six.
-                </p>
-                <footer className="blockquote-footer">
-                  Yogi Berra,
-                  <cite title="Source Title">
-                    The Wit and Wisdom of Yogi Berra, P. Pepe, Diversion Books,
-                    2014
-                  </cite>
-                </footer>
-              </blockquote>
-            </CardBody>
-          </Card>
-        </div>
       </div>
       <div className="row row-content">
-        <div className="col-12"></div>
         <div className="col-12">{leaderlist}</div>
       </div>
     </div>

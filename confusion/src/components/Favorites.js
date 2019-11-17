@@ -28,8 +28,9 @@ import { Control, Errors, LocalForm } from 'react-redux-form';
 import { Loading } from './LoadingComponent';
 import { baseUrl } from '../shared/baseUrl';
 
-const AdminPanel = props => {
+const FavoritesPanel = props => {
   console.log('PROPS INSIDE ADMINPANEL', props);
+
   // eslint-disable-next-line class-methods-use-this
   /* handleSubmitaddDish(values) {
     const { postFeedback, resetFeedbackForm } = this.props;
@@ -104,9 +105,7 @@ const AdminPanel = props => {
   const validEmail = val =>
     /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(val);
 
-  // /////////////////////// RENDER DISHES ////////////////////////////
-
-  // //////////////////// USERS  //////////////////////
+  // /////////////////////// RENDER FAVORITE DISHES ////////////////////////////
 
   const menu = props.dishes.map(dish => (
     <div className="col-12 m-1" key={dish.id}>
@@ -190,37 +189,9 @@ const AdminPanel = props => {
     dish: PropTypes.object.isRequired,
   };
 
-  // ///////////////////// LEADERS //////////////////////
+  // //////////////// MY  COMMENTS ///////////////////
 
-  const leaderlist = props.leaders.map(leader => (
-    <div className="col-12" key={leader.id}>
-      <RenderLeaders leaders={leader} />
-    </div>
-  ));
-
-  if (props.leaders.isLoading) {
-    return (
-      <div className="container">
-        <div className="row">
-          <Loading />
-        </div>
-      </div>
-    );
-  }
-
-  if (props.leaders.errMess) {
-    return (
-      <div className="container">
-        <div className="row">
-          <div className="col-12">
-            <h4>{props.leaders.errMess}</h4>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  function RenderLeaders({ leaders }) {
+  function RenderMyComments({ comments }) {
     if (leaders != null)
       return (
         <Card>
@@ -288,106 +259,6 @@ const AdminPanel = props => {
     leaders: PropTypes.object.isRequired,
   };
 
-  // //////////////////// USERS  //////////////////////
-
-  /*  const { users } = props; */
-
-  const userlist = props.users.users.map(user => (
-    <div className="col-12 m-1" key={user.id}>
-      <RenderUsers users={user} />
-    </div>
-  ));
-
-  if (props.users.isLoading) {
-    return (
-      <div className="container">
-        <div className="row">
-          <Loading />
-        </div>
-      </div>
-    );
-  }
-
-  if (props.users.errMess) {
-    return (
-      <div className="container">
-        <div className="row">
-          <div className="col-12">
-            <h4>{props.users.errMess}</h4>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  function RenderUsers({ users }) {
-    if (users != null)
-      return (
-        <Card>
-          <Fade in>
-            <CardBody>
-              <div className="row">
-                <div className="col-2">
-                  <CardImg
-                    width="100%"
-                    src={baseUrl + users.image}
-                    alt={users.name}
-                  />
-                </div>
-                <div className="col-10">
-                  <CardTitle>{users.name}</CardTitle>
-                  <CardText>{users.description}</CardText>
-                  <br></br>
-                </div>
-              </div>
-
-              <Row className="form-group">
-                <Col md={{ size: 6, offset: 2 }}>
-                  <div className="form-check">
-                    <Label check>
-                      <Control.checkbox
-                        model=".user"
-                        name="user"
-                        className="form-check-input"
-                      />{' '}
-                      <Errors
-                        className="text-danger"
-                        model=".user"
-                        show="touched"
-                        messages={{
-                          required: 'Required',
-                          minLength: 'Must be greater than 2 characters',
-                          maxLength: 'Must be 15 characters or less',
-                        }}
-                      />
-                      <p style={{ color: 'black' }}>
-                        Ban User for prohibited actions (48hours)
-                      </p>
-                    </Label>
-                  </div>
-                </Col>
-              </Row>
-              <Row className="form-group">
-                <Col md={{ size: 10, offset: 2 }}>
-                  <Button type="submit" color="primary">
-                    Submit
-                  </Button>
-                  <Button type="submit" color="danger">
-                    Delete User
-                  </Button>
-                </Col>
-              </Row>
-            </CardBody>
-          </Fade>
-        </Card>
-      );
-    return <div></div>;
-  }
-
-  RenderUsers.propTypes = {
-    users: PropTypes.object.isRequired,
-  };
-
   return (
     <div className="container">
       <Nav tabs>
@@ -398,7 +269,7 @@ const AdminPanel = props => {
               toggle('1');
             }}
           >
-            New Dish
+            My Comments
           </NavLink>
         </NavItem>
         <NavItem>
@@ -408,27 +279,7 @@ const AdminPanel = props => {
               toggle('2');
             }}
           >
-            Current Dishes
-          </NavLink>
-        </NavItem>
-        <NavItem>
-          <NavLink
-            className={classnames({ active: activeTab === '3' })}
-            onClick={() => {
-              toggle('3');
-            }}
-          >
-            Current Leaders
-          </NavLink>
-        </NavItem>
-        <NavItem>
-          <NavLink
-            className={classnames({ active: activeTab === '4' })}
-            onClick={() => {
-              toggle('4');
-            }}
-          >
-            Current Users
+            Favorite Dishes
           </NavLink>
         </NavItem>
       </Nav>
@@ -552,20 +403,8 @@ const AdminPanel = props => {
             <div className="column col-12">{menu} </div>
           </div>
         </TabPane>
-        <TabPane tabId="3">
-          <div className="row row-content">
-            <div className="col-12"></div>
-            <div className="col-12">{leaderlist}</div>
-          </div>
-        </TabPane>
-        <TabPane tabId="4">
-          <div className="row row-content">
-            <div className="col-12"></div>
-            <div className="col-12">{userlist}</div>
-          </div>
-        </TabPane>
       </TabContent>
     </div>
   );
 };
-export default AdminPanel;
+export default FavoritesPanel;
