@@ -12,6 +12,7 @@ import Footer from './FooterComponent';
 import Home from './HomeComponent';
 import Contact from './ContactComponent';
 import About from './AboutComponent';
+import AdminPanel from './AdminPanel';
 import {
   postComment,
   postFeedback,
@@ -19,15 +20,15 @@ import {
   fetchComments,
   fetchPromos,
   fetchLeaders,
+  fetchUsers,
 } from '../redux/Api/ActionCreators';
 
 const mapDispatchToProps = dispatch => ({
   fetchComments: () => dispatch(fetchComments()),
+  fetchUsers: () => dispatch(fetchUsers()),
   fetchPromos: () => dispatch(fetchPromos()),
   fetchLeaders: () => dispatch(fetchLeaders()),
-  fetchDishes: () => {
-    dispatch(fetchDishes());
-  },
+  fetchDishes: () => dispatch(fetchDishes()),
   resetFeedbackForm: () => {
     dispatch(actions.reset('feedback'));
   },
@@ -65,6 +66,7 @@ const mapStateToProps = state => ({
   comments: state.comments,
   promotions: state.promotions,
   leaders: state.leaders,
+  users: state.users,
 });
 
 class Main extends Component {
@@ -73,9 +75,11 @@ class Main extends Component {
     this.props.fetchComments();
     this.props.fetchPromos();
     this.props.fetchLeaders();
+    this.props.fetchUsers();
   }
 
   render() {
+    console.log('THIS ARE PROPS ', this.props);
     return (
       <>
         <Header />
@@ -103,8 +107,8 @@ class Main extends Component {
                     }
                     promoLoading={this.props.promotions.isLoading}
                     promoErrMess={this.props.promotions.errMess}
-                    leaderLoading={this.props.promotions.isLoading}
-                    leaderErrMess={this.props.promotions.errMess}
+                    leaderLoading={this.props.leaders.isLoading}
+                    leaderErrMess={this.props.leaders.errMess}
                     leader={
                       this.props.leaders.leaders.filter(
                         leader => leader.featured
@@ -158,6 +162,24 @@ class Main extends Component {
                 )}
               />
 
+              <Route
+                exact
+                path="/admin"
+                component={() => (
+                  <AdminPanel
+                    dishesLoading={this.props.dishes.isLoading}
+                    dishErrMess={this.props.dishes.errMess}
+                    dishes={this.props.dishes.dishes}
+                    leaderLoading={this.props.leaders.leaders.isLoading}
+                    leaderErrMess={this.props.leaders.leaders.errMess}
+                    leaders={this.props.leaders.leaders}
+                    /*       usersLoading={this.props.users.isLoading}
+                          userErrMess={this.props.users.users.errMess} */
+                    users={this.props.users}
+                  />
+                )}
+              />
+
               {/*     Default route  */}
 
               <Redirect to="/home" />
@@ -183,6 +205,8 @@ Main.propTypes = {
   fetchPromos: PropTypes.object.isRequired,
   fetchLeaders: PropTypes.object.isRequired,
   fetchComments: PropTypes.object.isRequired,
+  fetchUsers: PropTypes.object.isRequired,
+  users: PropTypes.object.isRequired,
 };
 
 // connecting main component to the redux store so they can talk.

@@ -7,8 +7,6 @@ import {
   BreadcrumbItem,
   Card,
   CardBody,
-  CardHeader,
-  Media,
   CardImg,
   CardText,
   CardTitle,
@@ -105,12 +103,8 @@ function About({ leaders }) {
         </div>
       </div>
       <div className="row row-content">
-        <div className="col-12">
-          <h2>Corporate Leadership</h2>
-        </div>
-        <div className="col-12">
-          <Media list>{leaderlist}</Media>
-        </div>
+        <div className="col-12"></div>
+        <div className="col-12">{leaderlist}</div>
       </div>
     </div>
   );

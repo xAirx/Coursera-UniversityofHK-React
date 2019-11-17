@@ -255,6 +255,47 @@ export const fetchLeaders = () => dispatch => {
       }
     )
     .then(response => response.json())
-    .then(promos => dispatch(addLeaders(promos)))
+    .then(leaders => dispatch(addLeaders(leaders)))
     .catch(error => dispatch(leadersFailed(error.message)));
+};
+
+// //////////////////// Users/////////////////
+
+export const usersLoading = () => ({
+  type: ActionTypes.USERS_LOADING,
+});
+
+export const usersFailed = errmess => ({
+  type: ActionTypes.USERS_FAILED,
+  payload: errmess,
+});
+
+export const addUsers = users => ({
+  type: ActionTypes.ADD_USERS,
+  payload: users,
+});
+
+export const fetchUsers = () => dispatch => {
+  dispatch(usersLoading(true));
+
+  return fetch(`${baseUrl}users`)
+    .then(
+      response => {
+        if (response.ok) {
+          return response;
+        }
+        const error = new Error(
+          `Error ${response.status}: ${response.statusText}`
+        );
+        error.response = response;
+        throw error;
+      },
+      error => {
+        const errmess = new Error(error.message);
+        throw errmess;
+      }
+    )
+    .then(response => response.json())
+    .then(users => dispatch(addUsers(users)))
+    .catch(error => dispatch(usersFailed(error.message)));
 };

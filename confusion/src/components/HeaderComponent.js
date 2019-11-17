@@ -142,7 +142,15 @@ class Header extends Component {
                   value="submit"
                   color="primary"
                 >
-                  Login
+                  <span className="fa fa-user fa-lg"></span> Login
+                </Button>
+                <Button
+                  className="loginbutton"
+                  type="submit"
+                  value="submit"
+                  color="primary"
+                >
+                  <span className="fa fa-facebook fa-lg"></span>Facebook Login
                 </Button>
               </FormGroup>
             </Form>
