@@ -21,6 +21,9 @@ import {
   fetchPromos,
   fetchLeaders,
   fetchUsers,
+  logoutUser,
+  loginUser,
+  registerUser,
 } from '../redux/Api/ActionCreators';
 
 const mapDispatchToProps = dispatch => ({
@@ -29,6 +32,9 @@ const mapDispatchToProps = dispatch => ({
   fetchPromos: () => dispatch(fetchPromos()),
   fetchLeaders: () => dispatch(fetchLeaders()),
   fetchDishes: () => dispatch(fetchDishes()),
+  logoutUser: () => dispatch(logoutUser()),
+  loginUser: () => dispatch(loginUser()),
+  registerUser: () => dispatch(registerUser()),
   resetFeedbackForm: () => {
     dispatch(actions.reset('feedback'));
   },
@@ -82,7 +88,11 @@ class Main extends Component {
     console.log('THIS ARE PROPS ', this.props);
     return (
       <>
-        <Header />
+        <Header
+          login={this.props.login}
+          logout={this.props.logout}
+          register={this.props.register}
+        />
 
         <TransitionGroup>
           <CSSTransition

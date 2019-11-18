@@ -9,6 +9,8 @@ import { Promotions } from './promotions';
 import { Leaders } from './leaders';
 import { InitialFeedback } from './forms';
 import { Users } from './users';
+import authReducer from '../Api/authReducer';
+import errorReducer from '../Api/errorReducer';
 
 export const ConfigureStore = () => {
   const store = createStore(
@@ -18,6 +20,8 @@ export const ConfigureStore = () => {
       promotions: Promotions,
       users: Users,
       leaders: Leaders,
+      auth: authReducer,
+      errors: errorReducer,
       ...createForms({
         feedback: InitialFeedback,
       }),

@@ -14,3 +14,12 @@ export const DISHES_FAILED = 'DISHES_FAILED';
 export const DISHES_LOADING = 'DISHES_LOADING';
 export const LEADERS_FAILED = 'DISHES_FAILED';
 export const LEADERS_LOADING = 'DISHES_LOADING';
+/* export const GET_ERRORS = 'GET_ERRORS'; */
+/* export const USER_LOADING = 'USER_LOADING'; */
+export const SET_CURRENT_USER = 'SET_CURRENT_USER';
+
+export const LOGIN_FAILED = 'LOGIN_FAILED ';
+export const LOGIN_LOADING = 'LOGIN_LOADING';
+
+export const REGISTER_FAILED = 'REGISTER_FAILED ';
+export const REGISTER_LOADING = ' REGISTER_LOADING ';

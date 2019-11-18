@@ -1,5 +1,68 @@
+import axios from 'axios';
+import jwtdecode from 'jwt-decode';
 import * as ActionTypes from './ActionTypes';
 import { baseUrl } from '../../shared/baseUrl';
+import setAuthToken from '../../utils/setAuthToken';
+// Register User
+
+export const registerLoading = () => ({
+  type: ActionTypes.REGISTER_LOADING,
+});
+
+export const registerFailed = errmess => ({
+  type: ActionTypes.REGISTER_FAILED,
+  payload: errmess,
+});
+
+export const registerUser = (userData, history) => dispatch => {
+  axios
+    .post('/api/users/register', userData)
+    .then(res => {
+      history.push('/login');
+      dispatch(registerLoading());
+    }) // re-direct to login on successful register
+    .catch(err => dispatch(registerFailed()));
+}; // Login - get user token
+
+export const loginLoading = () => ({
+  type: ActionTypes.LOGIN_LOADING,
+});
+
+export const loginFailed = errmess => ({
+  type: ActionTypes.LOGIN_FAILED,
+  payload: errmess,
+});
+
+export const loginUser = userData => dispatch => {
+  axios
+    .post('/api/users/login', userData)
+    .then(res => {
+      // Save to localStorage// Set token to localStorage
+      const { token } = res.data;
+      localStorage.setItem('jwtToken', token);
+      // Set token to Auth header
+      setAuthToken(token);
+      // Decode token to get user data
+      const decoded = jwtdecode(token);
+      // Set current user
+      dispatch(setCurrentUser(decoded), loginLoading());
+    })
+    .catch(err => dispatch(loginFailed()));
+}; // Set logged in user
+
+export const setCurrentUser = decoded => ({
+  type: ActionTypes.SET_CURRENT_USER,
+  payload: decoded,
+}); // User loading
+
+export const logoutUser = () => dispatch => {
+  // Remove token from local storage
+  localStorage.removeItem('jwtToken');
+  // Remove auth header for future requests
+  setAuthToken(false);
+  // Set current user to empty object {} which will set isAuthenticated to false
+  dispatch(setCurrentUser({}));
+};
 
 export const addFeedback = feedback => ({
   type: ActionTypes.ADD_FEEDBACK,

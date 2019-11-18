@@ -30,64 +30,64 @@ import { baseUrl } from '../shared/baseUrl';
 
 const FavoritesPanel = props => {
   console.log('PROPS INSIDE ADMINPANEL', props);
+  <
+    // eslint-disable-next-line class-methods-use-this
+    /* handleSubmitaddDish(values) {
+      const { postFeedback, resetFeedbackForm } = this.props;
+  
+      console.log(`Current State is: ${JSON.stringify(values)}`);
+      alert(`Current State is: ${JSON.stringify(values)}`);
+      postFeedback(
+        values.firstname,
+        values.lastname,
+        values.telnum,
+        values.email,
+        values.agree,
+        values.contactType,
+        values.message
+      );
+      resetFeedbackForm();
+      // event.preventDefault();
+    }
+  
+    handlesubmitFlagDish(values) {
+      const { postFeedback, resetFeedbackForm } = this.props;
+  
+      console.log(`Current State is: ${JSON.stringify(values)}`);
+      alert(`Current State is: ${JSON.stringify(values)}`);
+      postFeedback(
+        values.firstname,
+        values.lastname,
+        values.telnum,
+        values.email,
+        values.agree,
+        values.contactType,
+        values.message
+      );
+      resetFeedbackForm();
+      // event.preventDefault();
+    }
+  
+    handlesubmitFlagLeader(values) {
+      const { postFeedback, resetFeedbackForm } = this.props;
+  
+      console.log(`Current State is: ${JSON.stringify(values)}`);
+      alert(`Current State is: ${JSON.stringify(values)}`);
+      postFeedback(
+        values.firstname,
+        values.lastname,
+        values.telnum,
+        values.email,
+        values.agree,
+        values.contactType,
+        values.message
+      );
+      resetFeedbackForm();
+      // event.preventDefault();
+    } */
 
-  // eslint-disable-next-line class-methods-use-this
-  /* handleSubmitaddDish(values) {
-    const { postFeedback, resetFeedbackForm } = this.props;
-
-    console.log(`Current State is: ${JSON.stringify(values)}`);
-    alert(`Current State is: ${JSON.stringify(values)}`);
-    postFeedback(
-      values.firstname,
-      values.lastname,
-      values.telnum,
-      values.email,
-      values.agree,
-      values.contactType,
-      values.message
-    );
-    resetFeedbackForm();
-    // event.preventDefault();
-  }
-
-  handlesubmitFlagDish(values) {
-    const { postFeedback, resetFeedbackForm } = this.props;
-
-    console.log(`Current State is: ${JSON.stringify(values)}`);
-    alert(`Current State is: ${JSON.stringify(values)}`);
-    postFeedback(
-      values.firstname,
-      values.lastname,
-      values.telnum,
-      values.email,
-      values.agree,
-      values.contactType,
-      values.message
-    );
-    resetFeedbackForm();
-    // event.preventDefault();
-  }
-
-  handlesubmitFlagLeader(values) {
-    const { postFeedback, resetFeedbackForm } = this.props;
-
-    console.log(`Current State is: ${JSON.stringify(values)}`);
-    alert(`Current State is: ${JSON.stringify(values)}`);
-    postFeedback(
-      values.firstname,
-      values.lastname,
-      values.telnum,
-      values.email,
-      values.agree,
-      values.contactType,
-      values.message
-    );
-    resetFeedbackForm();
-    // event.preventDefault();
-  } */
-
-  // ////////////////// TABS  //////////////////// //////////////////// ////////////
-  const [activeTab, setActiveTab] = useState('1');
+    // ////////////////// TABS  //////////////////// //////////////////// ////////////
+    const [activeTab, setActiveTab] = useState('1');
 
   const toggle = tab => {
     if (activeTab !== tab) setActiveTab(tab);

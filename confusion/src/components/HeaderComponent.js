@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-comp */
 import React, { Component } from 'react';
 import {
   Navbar,
@@ -25,25 +26,84 @@ class Header extends Component {
 
     this.toggleNav = this.toggleNav.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
+    this.toggleRegisterModal = this.toggleRegisterModal.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
 
     this.state = {
       isNavOpen: false,
       isModalOpen: false,
+      isModalRegisterModalOpen: false,
+      isLoggedIn: true,
     };
   }
 
+  RenderButton = () => {
+    if (this.state.isLoggedIn === true) {
+      return (
+        <Button
+          /*  className="Loginbutton" */
+          outline
+          onClick={this.handleLogin}
+        >
+          Login
+        </Button>
+      );
+    }
+    return (
+      <Button
+        /*  className="Loginbutton" */
+        outline
+        onClick={this.handleLogout}
+      >
+        logout
+      </Button>
+    );
+  };
+
+  handleLogout(event) {
+    const { logout } = this.props;
+    logout(this.username.value, this.password.value);
+    event.preventDefault();
+  }
+
   handleLogin(event) {
+    const { login } = this.props;
     this.toggleModal();
+    this.setLogin();
     alert(
       `Username: ${this.username.value} Password: ${this.password.value} Remember: ${this.remember.checked}`
     );
+    login(this.username.value, this.password.value);
     event.preventDefault();
+    // REDUX ACTION
+    /* this.loginUser(); */
+  }
+
+  handleRegister(event) {
+    const { register } = this.props;
+    this.toggleRegisterModal();
+    register(this.username.value, this.password.value);
+    alert(`Username: ${this.username.value} Password: ${this.password.value}`);
+    event.preventDefault();
+    // REDUX ACTION
+    /* this.registerUser(); */
+  }
+
+  setLogin() {
+    this.setState(({ isLoggedIn }) => ({
+      isLoggedIn: !isLoggedIn,
+    }));
   }
 
   toggleModal() {
     this.setState(({ isModalOpen }) => ({
       isModalOpen: !isModalOpen,
+    }));
+  }
+
+  toggleRegisterModal() {
+    this.setState(({ isModalRegisterModalOpen }) => ({
+      isModalRegisterModalOpen: !isModalRegisterModalOpen,
     }));
   }
 
@@ -54,7 +114,7 @@ class Header extends Component {
   }
 
   render() {
-    const { isNavOpen, isModalOpen } = this.state;
+    const { isNavOpen, isModalOpen, isModalRegisterModalOpen } = this.state;
 
     return (
       <div>
@@ -85,13 +145,7 @@ class Header extends Component {
                   </NavLink>
                 </NavItem>
                 <NavItem>
-                  <Button
-                    className="Loginbutton"
-                    outline
-                    onClick={this.toggleModal}
-                  >
-                    Login
-                  </Button>
+                  <this.RenderButton></this.RenderButton>
                 </NavItem>
               </Nav>
             </Collapse>
@@ -152,6 +206,41 @@ class Header extends Component {
                 >
                   <span className="fa fa-facebook fa-lg"></span>Facebook Login
                 </Button>
+              </FormGroup>
+            </Form>
+          </ModalBody>
+        </Modal>
+
+        {/*  /////////////// REGISTER //////////////// */}
+        <Modal
+          isOpen={isModalRegisterModalOpen}
+          toggle={this.toggleRegisterModal}
+        >
+          <ModalHeader toggle={this.toggleRegisterModal}>Register</ModalHeader>
+          <ModalBody>
+            <Form onSubmit={this.handleRegister}>
+              <FormGroup>
+                <Label htmlFor="username">Username</Label>
+                <Input
+                  type="text"
+                  id="username"
+                  name="username"
+                  innerRef={input => (this.username = input)}
+                />
+              </FormGroup>
+              <FormGroup>
+                <Label htmlFor="password">Password</Label>
+                <Input
+                  type="password"
+                  id="password"
+                  name="password"
+                  innerRef={input => (this.password = input)}
+                />
+                <FormGroup>
+                  <Button type="submit" value="submit" color="primary">
+                    Submit Registration
+                  </Button>
+                </FormGroup>
               </FormGroup>
             </Form>
           </ModalBody>
