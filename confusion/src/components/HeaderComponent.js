@@ -28,12 +28,13 @@ class Header extends Component {
     this.toggleModal = this.toggleModal.bind(this);
     this.toggleRegisterModal = this.toggleRegisterModal.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
+    this.setLogin = this.setLogin.bind(this);
 
     this.state = {
       isNavOpen: false,
       isModalOpen: false,
       isModalRegisterModalOpen: false,
-      isLoggedIn: true,
+      isLoggedIn: false,
     };
   }
 
@@ -61,28 +62,29 @@ class Header extends Component {
   };
 
   handleLogout(event) {
-    const { logout } = this.props;
-    logout(this.username.value, this.password.value);
+    /* const { logout } = this.props;
+    logout(this.username.value, this.password.value); */
+    this.setLogin();
     event.preventDefault();
   }
 
   handleLogin(event) {
-    const { login } = this.props;
+    /* const { login } = this.props; */
     this.toggleModal();
     this.setLogin();
-    alert(
+    /* alert(
       `Username: ${this.username.value} Password: ${this.password.value} Remember: ${this.remember.checked}`
-    );
-    login(this.username.value, this.password.value);
+    ); */
+    /*  login(this.username.value, this.password.value); */
     event.preventDefault();
     // REDUX ACTION
     /* this.loginUser(); */
   }
 
   handleRegister(event) {
-    const { register } = this.props;
+    /* const { register } = this.props; */
     this.toggleRegisterModal();
-    register(this.username.value, this.password.value);
+    /*  register(this.username.value, this.password.value); */
     alert(`Username: ${this.username.value} Password: ${this.password.value}`);
     event.preventDefault();
     // REDUX ACTION
@@ -146,6 +148,13 @@ class Header extends Component {
                 </NavItem>
                 <NavItem>
                   <this.RenderButton></this.RenderButton>
+                  <Button
+                    /*  className="Loginbutton" */
+                    outline
+                    onClick={this.handleRegister}
+                  >
+                    Register
+                  </Button>
                 </NavItem>
               </Nav>
             </Collapse>

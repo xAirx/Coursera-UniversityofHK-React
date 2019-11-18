@@ -73,6 +73,9 @@ const mapStateToProps = state => ({
   promotions: state.promotions,
   leaders: state.leaders,
   users: state.users,
+  login: state.login,
+  logout: state.logout,
+  register: state.register,
 });
 
 class Main extends Component {
