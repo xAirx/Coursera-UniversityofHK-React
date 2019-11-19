@@ -62,29 +62,29 @@ class Header extends Component {
   };
 
   handleLogout(event) {
-    /* const { logout } = this.props;
-    logout(this.username.value, this.password.value); */
+    const { logout } = this.props;
+    logout(this.username.value, this.password.value);
     this.setLogin();
     event.preventDefault();
   }
 
   handleLogin(event) {
-    /* const { login } = this.props; */
+    const { login } = this.props;
     this.toggleModal();
     this.setLogin();
     /* alert(
       `Username: ${this.username.value} Password: ${this.password.value} Remember: ${this.remember.checked}`
     ); */
-    /*  login(this.username.value, this.password.value); */
+    login(this.username.value, this.password.value);
     event.preventDefault();
     // REDUX ACTION
     /* this.loginUser(); */
   }
 
   handleRegister(event) {
-    /* const { register } = this.props; */
+    const { register } = this.props;
     this.toggleRegisterModal();
-    /*  register(this.username.value, this.password.value); */
+    register(this.username.value, this.password.value);
     alert(`Username: ${this.username.value} Password: ${this.password.value}`);
     event.preventDefault();
     // REDUX ACTION

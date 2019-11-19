@@ -1,4 +1,4 @@
-import { SET_CURRENT_USER, LOGIN_LOADING } from './ActionTypes';
+import { SET_CURRENT_USER, LOGIN_LOADING } from '../Api/ActionTypes';
 
 const isEmpty = require('is-empty');
 
@@ -7,7 +7,8 @@ const initialState = {
   user: {},
   loading: false,
 };
-export default function (state = initialState, action) {
+
+export const Auth = (state = initialState, action) => {
   switch (action.type) {
     case SET_CURRENT_USER:
       return {
@@ -23,4 +24,4 @@ export default function (state = initialState, action) {
     default:
       return state;
   }
-}
+};
